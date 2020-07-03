@@ -1,0 +1,60 @@
+﻿
+@{
+    var vmLista = ViewBag.ListaDetalle;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Detalle Compra </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.ListaDetalle != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td width="1%" style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="35%" align="left">@item.Nombre</td>
+                                        <td width="15%" align="left">@item.Cantidad</td>
+                                        <td width="15%" align="left">@item.Precio</td>
+                                        <td width="15%" align="right">@item.Total</td>                                        
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

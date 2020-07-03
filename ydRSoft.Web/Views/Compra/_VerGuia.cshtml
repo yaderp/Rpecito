@@ -1,0 +1,114 @@
+﻿
+@model ydRSoft.Model.CompraGuiaModel
+
+@{
+    ViewBag.Title = "Guia";
+    string fmax = Model.Fecha;
+    var vmLista = ViewBag.vmLista;
+}
+
+<style>
+    .ydRImg img {
+        width: auto;
+        max-height: 300px;
+    }
+</style>
+
+
+<div class="ibox-title ydR-titulo-success text-success">
+    <h2> <strong> Guia de Remision  </strong>  </h2> &nbsp; &nbsp; &nbsp; 
+    <span class="text-primary">  @Model.Codigo</span> <a href="#" class="text-danger" >&nbsp; &nbsp; ver-OC <i class="fa fa-eye"></i></a>
+</div>
+
+<div class="row ydR-label-succes ydR-input text-success">
+    <div class="col-md-12">
+        <div class="row col-md-12">
+            <div class="col-md-12">
+                @Html.HiddenFor(x => x.ID)
+                <br />
+                @if (ViewBag.Sede != null)
+                {
+                <div class="form-group  row">
+                    <div class="col-sm-6">
+                        Fecha : &nbsp;
+                        <span> <strong> @Model.Fecha</strong></span>
+                    </div>
+                </div>
+                    
+
+                }
+                <div class="form-group  row">
+                    <div class="col-sm-4">
+                        RUC : &nbsp;
+                        <span class="text-success"> <strong> @Model.RUC</strong></span>
+                    </div>
+                    <div class="col-sm-8">
+                        RazSocial : &nbsp;
+                        <span> <strong> @Model.RazSocial</strong></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group  row">
+                    <div class="col-sm-6">
+                        Serie - Numero : &nbsp;
+                        <span> <strong> @Model.Serie - @Model.Numero</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="panel panel-info text-success">
+                            <div class="ibox-title">
+                                <h4> <small> Detalle Guia</small></h4>
+                            </div>
+                            <div class="ibox-content">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.vmLista != null)
+                                        {
+                                            foreach (var item in vmLista)
+                                            {
+                                                <tr>
+                                                    <td width="10%" align="center">@item.Codigo</td>
+                                                    <td width="55%" align="left">@item.Nombre</td>
+                                                    <td width="25%" align="left">@item.Cantidad</td>
+                                                </tr>
+                                            }
+
+                                        }
+                                    </tbody>
+                                    <tfoot align="right">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

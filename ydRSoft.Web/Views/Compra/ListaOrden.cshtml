@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Lista Orden";
+    var vmLista = ViewBag.ListaOrden;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Orden de Compra </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Orden</th>
+                                <th>Fecha</th>
+                                <th>Proveedor</th>
+                                <th>Total</th>
+                                <th>Empleado</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.ListaOrden != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                            <tr>
+                                <td width="1%" style="visibility:hidden">@item.ID</td>
+                                <td width="5%" align="center">@item.Codigo</td>
+                                <td width="20%" align="center">@item.Doc</td>
+                                <td width="10%" align="left">@item.Fecha</td>
+                                <td width="35%" align="left">@item.RazSocial</td>
+                                <td width="5%" align="left">@item.Cambio</td>
+                                <td width="10%" align="right">@item.ID_Empl</td>
+                                <td width="14%" align="center">
+                                    <div class="btn-group">
+                                        <a class="btn-success btn btn-xs" href="@Url.Action("Guia", "Compra", new { Id = item.ID})"> &nbsp;<i class="fa fa-share"></i>  &nbsp; Guia </a>
+                                        &nbsp;&nbsp;
+                                        <button class="btn-info btn btn-xs" data-toggle="modal" data-target="#modalVer" id="btnModal"> &nbsp;<i class="fa fa-view"></i> &nbsp; Ver</button>
+                                    </div>
+                                </td>
+                            </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="modalVer" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content">
+            <div class="modal-header" id="titulo">
+                <h2><strong> <span class="text-success" id="TituloVer"> </span> </strong>  </h2>
+                PROVEEDOR : &nbsp; <strong><span class="text-success" id="Proveedor"> </span> </strong><br />
+                TOTAL  : &nbsp; <strong><span class="text-success" id="CostoTotal"> </span> </strong>
+            </div>
+            <div class="modal-body">
+                <div id="resultado"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+<script>
+
+
+
+    $(".btn-info").click(function () {
+        var nom = $(this).parents("tr").find("td").eq(2).html();
+        var prov = $(this).parents("tr").find("td").eq(4).html();
+        var vid = $(this).parents("tr").find("td").eq(0).html();
+        var tot = $(this).parents("tr").find("td").eq(5).html();
+        $("#TituloVer").html(nom); 
+        $("#Proveedor").html(prov); 
+        $("#CostoTotal").html(tot); 
+        $.get("/Compra/GetDetalle", { IdCuerpo: vid }, function (response) {
+            $("#resultado").hide("slow", function () {
+                $(this).html(response);
+                $(this).show("slow");
+            });     
+        });
+    });
+
+
+</script>
+}
+
+

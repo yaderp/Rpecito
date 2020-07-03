@@ -1,0 +1,390 @@
+﻿
+
+@{
+    ViewBag.Title = "Orden Compra";
+
+    ydRSoft.Model.EmpleadoModel objEmpleado = (ydRSoft.Model.EmpleadoModel)Session["objEmpleado"];
+    string DniEmpl = "43114343";
+    if (objEmpleado != null)
+    {
+        DniEmpl = objEmpleado.DNI;
+    }
+
+}
+
+<script>
+    window.onload = function () {
+        loadInicio();
+    };
+</script>
+
+<div class="ibox-title ydR-titulo-success">
+    <h2> Registrar <strong> Orden Compra  </strong>   </h2> &nbsp; &nbsp; &nbsp;<span class="text-success"> @DateTime.Now.ToString("D")</span>
+</div>
+
+<div class="row ydR-label-succes ydR-input text-success">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="row col-md-12">
+                    <div class="col-md-8">
+                        @Html.Hidden("IdOrden", "0")
+
+                        @if (ViewBag.Sede != null)
+                        {
+                            <div class="form-group  row">
+                                <div class="col-sm-4">
+                                    @Html.DropDownList("Sede", ViewBag.Sede as SelectList, new { @class = "btn btn-default text-success" })
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" id="Fecha" class="form-control" disabled="disabled" value="@DateTime.Now.ToShortDateString()" />
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group  row">
+                            <div class="col-sm-4">
+                                <input type="text" id="RUC" class="form-control" placeholder="Nro RUC" />
+                            </div>
+
+                            <div class="col-sm-8">
+                                <input type="text" id="RazSocial" class="form-control" style="text-transform:uppercase" placeholder="Razon Social" />
+                            </div>
+                        </div>
+                        <div class="form-group  row">
+                            <div class="col-sm-12">
+                                <span class="text-danger" id="spanResultado"></span>
+                                <span class="text-success" id="spanRucValido"></span>
+                            </div>
+
+                        </div>
+
+                        @if (ViewBag.Moneda != null)
+                        {
+                            <div class="form-group  row">
+                                <div class="col-sm-3">
+                                    @Html.DropDownList("Moneda", ViewBag.Moneda as SelectList, new { @class = "btn btn-default text-success" })
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" id="TipoCambio" class="form-control" value="1" hidden="hidden" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="form-group  row">
+                            <label class="col-sm-2 col-form-label">Codigo</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control text-info"  disabled="disabled" id="SerieNum"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12" id="AddProd">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4><small> Agregar</small> Producto </h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-group  row">
+                    <div class="col-sm-3">
+                        @Html.DropDownList("IdListaSol", new SelectList(""), new { @class = "btn btn-default text-success" })
+                    </div>
+                    <div class="col-sm-4 text-success">
+                        Cantidad Minima : <strong> <span class="text-success" id="CantMinima" style="font-size: 16px"></span> </strong>
+                    </div>
+
+                </div>
+                <div class="form-group  row">
+                    <div class="col-sm-3">
+                        Cantidad :
+                        <input type="number" id="cantidad" class="form-control" placeholder="0.00" />
+                    </div>
+                    <div class="col-sm-3">
+                        Precio :
+                        <input type="number" id="precio" class="form-control" placeholder="0.00" />
+                    </div>
+                    <div class="col-sm-3">
+                        Total :
+                        <input type="number" id="total" class="form-control" placeholder="0.00" disabled="disabled" />
+                    </div>
+
+                    <div class="col-sm-3" id="convertsoles" hidden="hidden">
+                        Total Soles :
+                        <input type="number" id="totalSoles" class="form-control" placeholder="0.00" disabled="disabled" />
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <div class="col-sm-6">
+                        <button class="btn btn-ydR-success" type="button" id="btnAddSol" disabled="disabled"> &nbsp; AGREGAR PRODUCTO &nbsp; <i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+            <div id="resultado"></div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+    <script>
+        function loadInicio() {
+            loadListaSol();
+            //loadSerieNum();
+        };
+
+        //function loadSerieNum() {
+        //    $.get("/Compra/JsonaSerieNum", { IdTipo: 101 }, function (data) {
+        //        if (data.ID > 0) {
+        //            $("#SerieNum").val(data.Serie + " - " + data.Numero);
+        //        } else {
+        //            $("#SerieNum").val("-");
+        //        }
+
+        //    });
+        //}
+    </script>
+
+    <script>
+            $("#cantidad").keyup(function () {
+                CalculaTotal();
+            });
+
+            $("#precio").keyup(function () {
+                CalculaTotal();
+            });
+
+            $("#TipoCambio").keyup(function () {
+                CalculaTotal();
+            });
+
+            function CalculaTotal() {
+                var cantidad = $("#cantidad").val();
+                var precio = $("#precio").val();
+                var cambio = $("#TipoCambio").val();
+                var total = cantidad * precio;
+                total = total.toFixed(2);
+
+                var totalcambio = total * cambio;
+                totalcambio = totalcambio.toFixed(4);
+
+                $("#total").val(total);
+                $("#totalSoles").val(totalcambio);
+            };
+
+    </script>
+
+    <script>
+        $("#Moneda").change(function () {
+
+            var idMon = $("#Moneda").val();
+
+            if (idMon == 1) {
+                document.getElementById("TipoCambio").hidden = true;
+                document.getElementById("convertsoles").hidden = true;
+                $("#TipoCambio").val(1);
+            } else {
+                document.getElementById("TipoCambio").hidden = false;
+                document.getElementById("convertsoles").hidden = false;
+                $("#TipoCambio").val(3.56);
+            }
+        });
+    </script>
+
+    <script>
+        $("#RUC").keyup(function () {
+            var ruc = $("#RUC").val();
+            if (/^[0-9]*$/.test(ruc)) {
+                $("#RazSocial").val("");
+                $("#RazSocial").prop("disabled", false);
+                if (ruc.length == 11) {
+                    $("#spanRucValido").html("Documento Valido!!!");
+                    $("#spanResultado").html("");
+                    $("#btnAddSol").prop("disabled", false);
+                    BuscarRuc();
+                } else {
+                    $("#btnAddSol").prop("disabled", true);
+                    $("#spanResultado").html("Documento No Valido!!!");
+                    $("#spanRucValido").html("");
+                }
+            } else {
+                $("#spanResultado").html("No se Admiten Letras");
+                $("#spanRucValido").html("");
+            }
+        });
+
+
+        function BuscarRuc() {
+        var url = "@Url.Action("JsonProveedor", "Empresa")";
+        var ruc = $("#RUC").val();
+        var data = { ruc: ruc };
+
+            $.post(url, data).done(function (data) {
+                if (!data.Error) {
+                    $("#spanResultado").html("");
+                    $("#RUC").val(data.RUC);
+                    $("#RazSocial").val(data.RazSocial);
+                    $("#Direccion").val(data.Direccion);
+                    $("#spanRucValido").html("Proveedor Registrado");
+                    $("#spanResultado").html("");
+                    $("#RazSocial").prop("disabled", true);
+                    $("#Direccion").prop("disabled", true);
+                } else {
+                    $("#spanResultado").html("Proveedor No Registrado");
+                    $("#spanRucValido").html("");
+                    $("#RazSocial").val("");
+                    $("#Direccion").val("");
+                    $("#RazSocial").prop("disabled", false);
+                    $("#Direccion").prop("disabled", false);
+                }
+            });
+        };
+
+    </script>
+
+    <script>
+
+        var datalista = [];
+
+        function loadListaSol() {
+            $.get("/Compra/JsonaListaSol", { ID_Tipo: 1 }, function (data) {
+
+                if (data.length > 0) {
+                    datalista = data;
+                    $("#CantMinima").html(data[0].Cantidad);
+                    $("#cantidad").val(data[0].Cantidad);
+
+                    $("#IdListaSol").empty();
+                    $.each(data, function (index, row) {
+                        $("#IdListaSol").append("<option value='" + row.ID + "'>" + row.Nombre + "</option>")
+                    });
+                } else {
+                    $("#IdListaSol").empty();
+                    var vacio = "[- VACIO -]";
+                    $("#IdListaSol").append("<option value='" + 0 + "'>" + vacio + "</option>")
+                    $("#cantidad").prop("disabled", true);
+                    $("#precio").prop("disabled", true);
+                    $("#RUC").prop("disabled", true);
+                    $("#RazSocial").prop("disabled", true);
+                    $("#btnAddSol").prop("disabled", true);
+                }
+                
+            });
+        };
+
+        $("#IdListaSol").change(function () {
+            var idprod = parseInt($("#IdListaSol").val());
+            loadProd(idprod);
+        });
+
+        function loadProd(idprod) {
+            if (isNaN(idprod)) {
+                $("#cantidad").val(-1);
+            } else {
+                if (datalista != null) {
+                    for (var i = 0; i < datalista.length; i++) {
+                        if (datalista[i].ID == idprod) {
+                            $("#cantidad").val(datalista[i].Cantidad);
+                            $("#CantMinima").html(datalista[i].Cantidad);
+
+                            CalculaTotal();
+                            return;
+                        }
+                    }
+                } else {
+                    alert("Intente en Otro Momento!!!");
+                }
+            }
+        }
+
+    </script>
+
+    <script>
+
+        $("#btnAddSol").click(function () {
+            var idv = parseInt($("#IdOrden").val());
+            if (isNaN(idv)) return;
+
+            if (idv > 0) {
+                AddDetalle(idv);
+            } else {
+                AddOrdenCompra();
+            }
+
+        });
+
+        function AddOrdenCompra() {
+            var dataString = new FormData();
+            dataString.append("Sede", $("#Sede").val());
+            dataString.append("RUC", $("#RUC").val());
+            dataString.append("RazSocial", $("#RazSocial").val());
+            dataString.append("Moneda", $("#Moneda").val());
+            dataString.append("Cambio", $("#TipoCambio").val());
+            dataString.append("ID_Empl", @DniEmpl);
+            $.ajax({
+                url: "@Url.Action("AddOrden", "Compra")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                //async: false,
+                success: function (data) {
+                    if (data.ID > 0) {
+                        $("#IdOrden").val(data.ID);                        
+                        $("#SerieNum").val(data.Filtro);
+                        $("#RazSocial").prop("disabled", true);
+                        $("#RUC").prop("disabled", true);
+                        $("#Moneda").prop("disabled", true);
+                        $("#TipoCambio").prop("disabled", true);
+                        $("#spanResultado").html("");
+                        AddDetalle(data.ID);
+                    } else {
+                        alert("Error al Intentar Guardar");
+                    }
+                }
+            });
+        };
+
+
+        function AddDetalle(vid) {
+            var dataString = new FormData();
+            dataString.append("ID_Cuerpo", vid);
+            dataString.append("ID_Alma", $("#IdListaSol").val());
+            dataString.append("Cantidad", $("#cantidad").val());
+            dataString.append("Precio", $("#precio").val());
+            dataString.append("Total", $("#total").val());
+            $.ajax({
+                url: "@Url.Action("AddDetalle", "Compra")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    //$("#Cantidad").val("");
+                    $("#resultado").hide("slow", function () {
+                        $(this).html(response);
+                        $(this).show("slow");
+                    });
+                }
+            });
+        }
+
+    </script>
+    }

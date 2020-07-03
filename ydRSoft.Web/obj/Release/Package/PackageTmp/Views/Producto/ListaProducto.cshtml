@@ -1,0 +1,90 @@
+﻿    
+@{
+    ViewBag.Title = "Lista Producto";
+    Layout = "~/Views/Shared/_LayoutProduccion.cshtml";
+
+}
+
+<script>
+    window.onload = function () {
+        CargarProd(1);
+    };
+</script>
+
+<div class="row ydR-label-succes ydR-input">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-default">
+                <div class="ibox-title ydR-titulo-success">
+
+                    <h2> <small> Lista </small> &nbsp; <strong>Productos </strong> </h2>
+
+                </div>
+                <div class="ibox-content">
+                    <div>
+
+                        @if (ViewBag.ListaArea != null)
+                        {
+                            <div class="form-group  row">
+                                <div class="col-sm-4">
+                                    @Html.DropDownList("ID_Area", ViewBag.ListaArea as SelectList
+                                                                , new { @class = "btn btn-default text-success" })
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="resultado"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#ID_Area").change(function () {
+                var vid = parseInt($("#ID_Area").val());
+                if (isNaN(vid)) vid = 0;
+                CargarProd(vid);
+            });
+        });
+
+
+        function CargarProd(vid) {
+            var dataString = new FormData();
+            dataString.append("IdArea", vid);
+            $.ajax({
+                url: "@Url.Action("MostrarProductos", "Producto")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#resultado").hide("slow", function () {
+                        $(this).html(response);
+                        $(this).show("slow");
+                    });
+                }
+            });
+        };
+
+    </script>
+}
+

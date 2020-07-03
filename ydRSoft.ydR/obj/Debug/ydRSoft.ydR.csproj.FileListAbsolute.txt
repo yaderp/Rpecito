@@ -1,0 +1,5 @@
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\bin\Debug\ydRSoft.ydR.dll
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\bin\Debug\ydRSoft.ydR.pdb
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\obj\Debug\ydRSoft.ydR.csproj.CoreCompileInputs.cache
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\obj\Debug\ydRSoft.ydR.dll
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\obj\Debug\ydRSoft.ydR.pdb

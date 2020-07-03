@@ -1,0 +1,293 @@
+﻿
+@{
+    ViewBag.Title = "AddGasto";
+}
+<style>
+    .ydRImg img {
+        width: auto;
+        max-height: 400px;
+    }
+</style>
+
+<div class="ibox-title ydR-titulo-success">
+    <h2> <strong> Gastos  </strong>   </h2> &nbsp; &nbsp; &nbsp;<span class="text-success"> @DateTime.Now.ToString("D")</span>
+</div>
+
+<div class="row ydR-label-succes ydR-input">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        @Html.Hidden("IdGasto", "0")
+
+                                        @if (ViewBag.Sede != null && ViewBag.Tipo != null)
+                                        {
+                                            <div class="form-group  row">
+                                                <div class="col-sm-4">
+                                                    @Html.DropDownList("Sede", ViewBag.Sede as SelectList, new { @class = "btn btn-default text-success" })
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    @Html.DropDownList("IdTipo", ViewBag.Tipo as SelectList, new { @class = "btn btn-default text-success" })
+                                                </div>
+
+                                            </div>
+                                        }
+
+                                        <div class="form-group  row">
+                                            <div class="col-sm-6">
+                                                <input type="date" id="Fecha" class="form-control" max="2020-06-25" value="2020-06-25"/>
+                                            </div>
+                                        </div>
+                                        <div id="cabecera">
+                                            <div class="form-group  row">
+                                                <div class="col-sm-4">
+                                                    <input type="text" id="RUC" class="form-control" placeholder="Nro RUC" />
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="RazSocial" class="form-control" style="text-transform:uppercase" placeholder="Razon Social" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group  row">
+                                                <div class="col-sm-12">
+                                                    <span class="text-danger" id="spanResultado"></span>
+                                                    <span class="text-success" id="spanRucValido"></span>
+                                                </div>
+
+                                            </div>
+                                            
+                                            @if (ViewBag.Documento != null)
+                                            {
+                                                <div class="form-group  row">
+                                                    <div class="col-sm-6">
+                                                        @Html.DropDownList("IdDoc", ViewBag.Documento as SelectList, new { @class = "btn btn-default text-success" })
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="Serie" class="form-control" placeholder="Serie" />
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" id="Numero" class="form-control" placeholder="Numero" />
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <div id="cuerpo">                                           
+                                            <div class="form-group  row">
+                                                <div class="col-sm-6">
+                                                    <input type="text" id="Inafecta" class="form-control" placeholder="Inafecta" />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="text" id="Total" class="form-control" placeholder="Total" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group  row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" id="Descripcion" class="form-control" placeholder="Descripcion" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group  row">
+                                            <div class="col-sm-12">
+                                                <input type="file" id="fileUpload" accept="image/png, image/jpeg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ydRImg">
+                                        <div id="imagePreview">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-success" type="button" id="btnSave"> &nbsp; GUARDAR GASTO &nbsp; <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>                               
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+            <div id="resultado"></div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        function filePreview(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#imagePreview").html("<img src= '" + e.target.result + "' />");
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        $("#fileUpload").change(function () {
+            filePreview(this);
+        });
+                
+    </script>
+
+    <script>
+        $("#RUC").keyup(function () {
+            var ruc = $("#RUC").val();
+            if (/^[0-9]*$/.test(ruc)) {
+                $("#RazSocial").val("");
+                $("#Direccion").val("");
+                $("#RazSocial").prop("disabled", false);
+                $("#Direccion").prop("disabled", false);
+                if (ruc.length == 11 || ruc.length == 8) {
+                    $("#spanRucValido").html("Documento Valido!!!");
+                    $("#spanResultado").html("");
+                    BuscarRuc();
+                } else {
+                    $("#spanResultado").html("Documento No Valido!!!");
+                    $("#spanRucValido").html("");
+                }
+            } else {
+                $("#spanResultado").html("No se Admiten Letras");
+                $("#spanRucValido").html("");
+            }
+        });
+
+
+        function BuscarRuc() {
+        var url = "@Url.Action("JsonProveedor", "Empresa")";
+        var ruc = $("#RUC").val();
+        var data = { ruc: ruc };
+
+            $.post(url, data).done(function (data) {
+                if (!data.Error) {
+                    $("#spanResultado").html("");
+                    $("#RUC").val(data.RUC);
+                    $("#RazSocial").val(data.RazSocial);
+                    $("#Direccion").val(data.Direccion);
+                    $("#spanRucValido").html("Proveedor Registrado");
+                    $("#spanResultado").html("");
+                    $("#RazSocial").prop("disabled", true);
+                    $("#Direccion").prop("disabled", true);
+                } else {
+                    $("#spanResultado").html("Proveedor No Registrado");
+                    $("#spanRucValido").html("");
+                    $("#RazSocial").val("");
+                    $("#Direccion").val("");
+                    $("#RazSocial").prop("disabled", false);
+                    $("#Direccion").prop("disabled", false);
+                }
+            });
+        };
+
+
+    </script>
+
+    <script>       
+
+        $("#IdTipo").change(function () {
+            var idt = parseInt($("#IdTipo").val());
+
+            if (isNaN(idt)) return;
+
+            //alert(idt)
+
+            if (idt == 1) {
+                document.getElementById("cabecera").hidden = false;
+                document.getElementById("cuerpo").hidden = true;
+                document.getElementById("btnSave").hidden = true;
+                document.getElementById("AddProd").hidden = false;
+                document.getElementById("Descripcion").hidden = true;
+            }
+
+            if (idt == 2) {
+                document.getElementById("cabecera").hidden = false;
+                document.getElementById("cuerpo").hidden = false;
+                document.getElementById("btnSave").hidden = false;
+                document.getElementById("AddProd").hidden = true;
+                document.getElementById("Descripcion").hidden = false;
+            }
+
+            if (idt == 3) {
+                document.getElementById("cabecera").hidden = true;
+                document.getElementById("cuerpo").hidden = false;
+                document.getElementById("btnSave").hidden = false;
+                document.getElementById("AddProd").hidden = true;
+                document.getElementById("Descripcion").hidden = false;
+            }
+
+        });
+
+    </script>
+    
+    
+    <script>
+        
+        var IdGastoSave = 0;
+
+        $("#btnSave").click(function () {
+            AddGasto();
+        });
+
+        function AddGasto() {
+            var selectFile = ($("#fileUpload"))[0].files[0];
+            var dataString = new FormData();
+            dataString.append("Sede", $("#Sede").val());
+            dataString.append("IdTipo", $("#IdTipo").val());
+            dataString.append("RUC", $("#RUC").val());
+            dataString.append("RazSocial", $("#RazSocial").val());
+            dataString.append("IdDoc", $("#IdDoc").val());
+            dataString.append("Serie", $("#Serie").val());
+            dataString.append("Numero", $("#Numero").val());
+            dataString.append("Fecha", $("#Fecha").val());
+            dataString.append("Inafecta", $("#Inafecta").val());
+            dataString.append("Total", $("#Total").val());
+            dataString.append("fileUpload", selectFile);
+
+            $.ajax({
+                url: "@Url.Action("AddGasto", "Gasto")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                //async: false,
+                success: function (data) {
+                    if (data.ID > 0) { 
+                        Limpiar();
+                    }
+
+
+                    alert(data.Mensaje);
+                }
+            });
+        };
+               
+
+        function Limpiar() {
+           window.location.href='@Url.Action("Addgasto", "Gasto")';
+        }
+
+    </script>
+}

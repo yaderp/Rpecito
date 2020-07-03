@@ -1,0 +1,104 @@
+﻿
+@{
+    var vmLista = ViewBag.vmLista;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Guia Compra </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Codigo</th>
+                                <th>RUC</th>
+                                <th>Proveedor</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.vmLista != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td width="1%" style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="5%" align="center">@item.Fecha</td>
+                                        <td width="25%" align="left">@item.Serie - @item.Numero</td>
+                                        <td width="25%" align="left">@item.RUC</td>
+                                        <td width="30%" align="left">@item.RazSocial</td>
+                                        <td width="15%" align="center">
+                                            <div class="btn-group">
+                                                <button class="btn-success btn btn-xs"> &nbsp;<i class="fa fa-save"></i> &nbsp; Aprobar</button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn-info btn btn-xs"> &nbsp;<i class="fa fa-edit"></i> &nbsp; Editar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="text" id="IdCodigo" hidden="hidden" />
+
+<script>
+
+    $(".btn-success").click(function () {
+        vid = $(this).parents("tr").find("td").eq(0).html();
+
+        $.get("/Compra/ApruebaGuia", { IdGuia: vid }, function (response) {
+            $("#resultadoGuia").hide("slow", function () {
+                $(this).html(response);
+                $(this).show("slow");
+            });
+        });
+
+        document.getElementById("resultado").hidden = true;
+
+    });
+
+    $(".btn-info").click(function () {
+        vid = $(this).parents("tr").find("td").eq(0).html();
+        cod = $(this).parents("tr").find("td").eq(3).html();
+        $("#IdCodigo").val(cod);
+
+        $.get("/Compra/GuiaDetalle", { IdCuerpo:vid, Codigo: cod }, function (response) {
+            $("#resultado").hide("slow", function () {
+                $(this).html(response);
+                $(this).show("slow");
+            });
+        });
+        document.getElementById("resultado").hidden = false;
+    });
+
+
+</script>
+

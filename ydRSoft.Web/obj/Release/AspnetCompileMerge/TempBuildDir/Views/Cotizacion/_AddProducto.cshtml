@@ -1,0 +1,292 @@
+﻿
+
+@{
+
+    var vmLista = ViewBag.ListaDetalle;
+    var Cotiza_ID = ViewBag.ID_Cotiza;
+    decimal CostoTotal = 0;
+}
+
+<div class="row">
+    @if (TempData["Error"] != null)
+    {
+        if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-success col-md-6">
+                <strong>Felicidades!!!</strong> @TempData["Mensaje"].ToString()
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger col-md-6">
+                <strong>Advertencia!!!</strong> @TempData["Error"].ToString()
+            </div>
+        }
+
+    }
+
+    @if (ViewBag.ID_Cargo != null &&ViewBag.ID_Cotiza!=null)
+    {
+
+        <div class="col-md-2">
+        </div>
+
+        <div class="col-md-4">
+            <a class="btn-ydR-info col-md-6" href="@Url.Action("SendCotiza", "Cotizacion", new {IdCotiza = Cotiza_ID })"> &nbsp;<i class="fa fa-send"></i> &nbsp; ENVIAR </a>
+
+        </div>
+    }
+</div>
+
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Productos </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (vmLista != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="40%" align="left">@item.Nombre</td>
+                                        <td width="15%" align="left">@item.Cantidad</td>
+                                        <td width="15%" align="right">@item.Precio</td>
+                                        <td width="15%" align="right">@item.Total</td>
+                                        <td width="10%" align="center">
+                                            <div class="btn-group">
+                                                <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#modalEdit"> &nbsp;<i class="fa fa-edit"></i> &nbsp; Editar</button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn-danger btn btn-xs"> &nbsp;<i class="fa fa-trash"></i>  &nbsp; Eliminar </button>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    CostoTotal = CostoTotal +item.Total;
+
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th align="center"><strong>Total</strong></th>
+                                <th align="right"> @CostoTotal</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal inmodal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content" >
+            <div class="modal-header" id="titulo">
+                <h2><strong> <span class="text-success" id="TituloEditar"> </span> </strong>  </h2> &nbsp; EDITAR
+            </div>
+            <div class="modal-body align-content-center">
+                @if (ViewBag.ListaArea != null)
+                {
+                    <input type="text" class="form-control" id="IdCotiEditar" hidden="hidden" />
+                    <input type="text" class="form-control" id="IdProdEditar" hidden="hidden" />
+
+                    <div class="form-group  row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-10">
+                            @Html.DropDownList("IdAreaDet", ViewBag.ListaArea as SelectList,
+                                                    "[- Area -]", new { @class = "btn btn-default col-sm-6" })
+                        </div>
+                    </div>
+                }
+
+                    <div class="form-group  row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-10">
+                            @Html.DropDownList("IdProdDet", new SelectList(""),
+                                                    "[- Producto -]", new { @class = "btn btn-default col-sm-6" })
+                        </div>
+
+                    </div>
+                    <div class="form-group  row">
+                        <div class="col-sm-2"></div>
+                        <label class="col-sm-2 col-form-label">Precio</label>
+                        <div class="col-sm-4">
+                            <input type="text" id="EditPrecio" class="form-control" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <div class="col-sm-2"></div>
+                        <label class="col-sm-2 col-form-label">Cantidad</label>
+                        <div class="col-sm-4">
+                            <input type="text" id="EditCantidad" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group  row">
+                        <div class="col-sm-2"></div>
+                        <label class="col-sm-2 col-form-label">Total</label>
+                        <div class="col-sm-4">
+                            <input type="text" id="EditTotal" class="form-control" disabled="disabled" />
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+                <button type="button" id="ModalSave" class="btn btn-ydR-primary" data-dismiss="modal"> &nbsp; Guardar Cambios &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var dataEditlista = null;
+
+    $("#IdAreaDet").change(function () {
+        $.get("/Cotizacion/JsonProdLista", { ID_Area: $("#IdAreaDet").val() }, function (data) {
+            $("#IdProdDet").empty();
+            dataEditlista = data;
+
+            $("#EditPrecio").val(data[0].Precio);
+            CalculaEditTotal();
+
+            $.each(data, function (index, row) {
+                $("#IdProdDet").append("<option value='" + row.ID + "'>" + row.Nombre + "</option>")
+            });
+        });
+    });
+
+    $("#IdProdDet").change(function () {
+        var idprod = parseInt($("#IdProdDet").val());
+        if (isNaN(idprod)) {
+            $("#EditPrecio").val(0);
+        } else {
+            if (dataEditlista != null) {
+                for (var i = 0; i < dataEditlista.length; i++) {
+                    if (dataEditlista[i].ID == idprod) {
+                        $("#EditPrecio").val(dataEditlista[i].Precio);
+                        CalculaEditTotal();
+                        return;
+                    }
+                }
+            } else {
+                alert("Intente en Otro Momento!!!");
+            }
+        }
+    });
+    //fin lista producto
+
+    $("#EditCantidad").keyup(function () {
+        CalculaEditTotal();
+    });
+
+    $("#ModalSave").click(function () {
+
+        if (!/^[0-9]*$/.test(parseInt($("#IdCotiza").val()))) {
+            return;
+        }
+
+        var dataString = new FormData();
+        dataString.append("ID_Producto", $("#IdProdDet").val());
+        dataString.append("ID", $("#IdProdEditar").val());
+        dataString.append("Precio", $("#EditPrecio").val());
+        dataString.append("Cantidad", $("#EditCantidad").val());
+        dataString.append("ID_Cuerpo", $("#IdCotiza").val());
+        dataString.append("Total", $("#EditTotal").val());
+        $.ajax({
+            url: "@Url.Action("EditCotDetalle", "Cotizacion")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+    });
+
+    $(".btn-success").click(function () {
+        var id = parseInt($(this).parents("tr").find("td").eq(0).html());
+        if (!isNaN(id)) {
+            $("#IdProdEditar").val(id);
+            $("#IdCotiEditar").val($("#IdCotiza").val());
+            $("#TituloEditar").html($(this).parents("tr").find("td").eq(2).html());
+        }
+    });
+
+    $(".btn-danger").click(function () {
+        var id = parseInt($(this).parents("tr").find("td").eq(0).html());
+        if (!/^[0-9]*$/.test(id)) {
+            return;
+        }
+
+        if (!/^[0-9]*$/.test(parseInt($("#IdCotiza").val()))) {
+            return;
+        }
+
+        var dataString = new FormData();
+        dataString.append("IdDet", id);
+        dataString.append("IdCuerpo", $("#IdCotiza").val());
+        dataString.append("IdEmpl", "12");
+        $.ajax({
+            url: "@Url.Action("DeleteCotDetalle", "Cotizacion")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+    });
+
+    function CalculaEditTotal() {
+        var cantidad = $("#EditCantidad").val();
+        if (/^[0-9.]*$/.test(cantidad)) {
+            var precio = $("#EditPrecio").val();
+            var total = cantidad * precio;
+            total = total.toFixed(2);
+            $("#EditTotal").val(total);
+        }
+    };
+
+</script>

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Lista Solicitud";
+}
+
+<script>
+    window.onload = function () {
+        loadInicio();
+    };
+
+</script>
+
+<div id="resultado"></div>
+
+@section scripts
+{
+    <script>
+        function loadInicio() {
+            $.get("/Compra/getListaSol", { IdDet: 2 }, function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            });
+        };        
+    </script>
+}
+

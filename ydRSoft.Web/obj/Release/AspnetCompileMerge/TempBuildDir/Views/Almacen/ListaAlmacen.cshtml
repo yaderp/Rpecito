@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Lista Almacen";
+    Layout = "~/Views/Shared/_LayoutProduccion.cshtml";
+
+}
+
+<script>
+    window.onload = function () {
+        CargarProd(2);
+    };
+</script>
+
+<div class="row ydR-label-succes ydR-input">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-default">
+                <div class="ibox-title ydR-titulo-success">
+
+                    <h2> <small> Lista </small> &nbsp; <strong>Almacen </strong> </h2>
+
+                </div>
+                <div class="ibox-content">
+                    @if (ViewBag.ListaTipo != null)
+                    {
+                        <div class="form-group  row">
+                            <div class="col-sm-3">
+                                @Html.DropDownList("ID_Tipo", ViewBag.ListaTipo as SelectList
+                                                            , new { @class = "btn btn-default text-success" })
+                            </div>                            
+                        </div>
+                    }
+                    <div id="resultado"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            $("#ID_Tipo").change(function () {                
+                var vid = parseInt($("#ID_Tipo").val());
+                if (isNaN(vid)) return;
+
+                CargarProd(vid);
+            });
+
+        });
+
+
+        function CargarProd(vid) {
+            var dataString = new FormData();
+            dataString.append("IdTipo", vid);
+            $.ajax({
+                url: "@Url.Action("MostrarAlmacen", "Almacen")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#resultado").hide("slow", function () {
+                        $(this).html(response);
+                        $(this).show("slow");
+                    });
+                }
+            });
+        };
+
+    </script>
+}
+
+

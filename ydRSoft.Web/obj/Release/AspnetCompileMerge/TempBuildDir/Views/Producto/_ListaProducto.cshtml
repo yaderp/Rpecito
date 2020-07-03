@@ -1,0 +1,289 @@
+﻿
+@{
+    ydRSoft.Model.EmpleadoModel objEmpleado = (ydRSoft.Model.EmpleadoModel)Session["objEmpleado"];
+    string DniEmpl = string.Empty;
+    int IdCargo = 0;
+    if (objEmpleado != null)
+    {
+        DniEmpl = objEmpleado.DNI;
+        IdCargo = objEmpleado.ID_Cargo;
+    }
+
+    var vmLista = ViewBag.ListaProducto;
+
+}
+
+@if (TempData["Error"] != null)
+{
+    if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success">
+            <strong>Felicidades!!!</strong> @TempData["Mensaje"].ToString()
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>Advertencia!!!</strong> @TempData["Error"].ToString()
+        </div>
+    }
+
+}
+
+<br />
+    <div class="row text-success">
+        <div class="col-md-12">
+            <div>
+                <div class="panel panel-success">
+                    <div class="ibox-content">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="visibility:hidden">ID</th>
+                                    <th>#</th>
+                                    <th>AREA</th>
+                                    <th>Nombre</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    <th>Opcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td with="1%" style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="20%" align="left">@item.Area</td>
+                                        <td width="35%" align="left">@item.Nombre</td>
+                                        <td width="10%" align="right">@item.Stock</td>
+                                        <td width="10%" align="center">@item.Precio</td>
+
+                                        <td width="20%" align="center">
+                                            <div class="btn-group">
+                                                <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#modalEdit"> &nbsp;<i class="fa fa-edit"></i> &nbsp; Editar</button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn-danger btn btn-xs"> &nbsp;<i class="fa fa-trash"></i>  &nbsp; Eliminar </button>
+                                                &nbsp;&nbsp;
+                                                <a class="btn-warning btn btn-xs" href="@Url.Action("AddReceta","Producto",new { id = item.ID })"> &nbsp;<i class="fa fa-share"></i>  &nbsp; Receta </a>
+                                                &nbsp; &nbsp;
+                                                @if (IdCargo == ydRSoft.ydR.Cargos.FINANZAS || IdCargo == ydRSoft.ydR.Cargos.ADMINISTRADOR)
+                                                {
+                                                    <button class="btn-info btn btn-xs" data-toggle="modal" data-target="#modalCosto"> &nbsp;<i class="fa fa-dollar"></i> &nbsp; Costo</button>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot align="right">
+                                <tr>
+                                    <th style="visibility:hidden"></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg text-success" id="ydR-label">
+            <div class="modal-content">
+                <div class="modal-header" id="titulo">
+                    <h2><strong> <span class="text-success" id="TituloEditar"> </span> </strong>  </h2> &nbsp; EDITAR
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="EditIdProd" hidden="hidden" />
+                    @if (ViewBag.ListaArea != null)
+                    {
+
+                    <div class="form-group  row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-10">
+                            @Html.DropDownList("EditIdArea", ViewBag.ListaArea as SelectList,
+                                                    "[- Area -]", new { @class = "btn btn-default col-sm-4" })
+                        </div>
+                    </div>
+                    }
+
+                    <div class="form-group  row">
+                        <label class="col-sm-2 col-form-label">Nombre</label>
+                        <div class="col-sm-6">
+                            <input type="text" id="EditNombre" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group  row">
+                        <label class="col-sm-2 col-form-label">Imagen</label>
+                        <div class="col-sm-4">
+                            <input type="file" id="EditfileUpload" accept="image/png, image/jpeg" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+                    <button type="button" id="ModalSave" class="btn btn-ydR-primary" data-dismiss="modal"> &nbsp; Guardar Cambios &nbsp;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal inmodal fade" id="modalCosto" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg text-success" id="ydR-label">
+            <div class="modal-content">
+                <div class="modal-header" id="titulo">
+                    <h2><strong> <span class="text-success" id="TituloCosto"> </span> </strong>  </h2> &nbsp; EDITAR
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="CostoIdProd" hidden="hidden" />                    
+
+                    <div class="form-group  row">
+                        <label class="col-sm-2 col-form-label">Costo</label>
+                        <div class="col-sm-6">
+                            <input type="text" id="CostoMonto" class="form-control" />
+                        </div>
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+                    <button type="button" id="ModalCosto" class="btn btn-ydR-primary" data-dismiss="modal"> &nbsp; Guardar Cambios &nbsp;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("#ModalSave").click(function () {
+
+        //alert($("#EditIdProd").val());
+         if (!/^[0-9]*$/.test(parseInt($("#EditIdProd").val()))) {
+            return;
+        }
+        var selectFile = ($("#EditfileUpload"))[0].files[0];
+
+         var dataString = new FormData();
+         dataString.append("IdProd", $("#EditIdProd").val());
+         dataString.append("IdArea", $("#EditIdArea").val());
+         dataString.append("Nombre", $("#EditNombre").val());
+        dataString.append("fileUpload", selectFile);
+
+        $.ajax({
+            url: "@Url.Action("EditProducto", "Producto")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+
+                $("#ID_Area").val(idAreaNew);
+
+            }
+        });
+    });
+
+    $("#ModalCosto").click(function () {
+
+        //alert($("#EditIdProd").val());
+        if (!/^[0-9]*$/.test(parseInt($("#CostoIdProd").val()))) {
+            return;
+        }
+       
+        var dataString = new FormData();
+        dataString.append("IdProd", $("#CostoIdProd").val());
+        dataString.append("Costo", $("#CostoMonto").val());
+        dataString.append("IdArea", $("#ID_Area").val());
+        $.ajax({
+            url: "@Url.Action("CostoProducto", "Producto")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });                
+            }
+        });
+    });
+
+
+    $(".btn-success").click(function () {
+        var id = $(this).parents("tr").find("td").eq(0).html();
+        if (!isNaN(id)) {
+            var nomEd = $(this).parents("tr").find("td").eq(3).html();
+            $("#EditIdProd").val(id);
+            $("#TituloEditar").html(nomEd);
+
+            $("#EditIdArea").val($("#ID_Area").val())
+            $("#EditNombre").val(nomEd)
+        }
+    });
+
+    $(".btn-info").click(function () {
+        var id = $(this).parents("tr").find("td").eq(0).html();
+        if (!isNaN(id)) {
+            var nomEd = $(this).parents("tr").find("td").eq(3).html();
+            $("#CostoIdProd").val(id);
+            $("#TituloCosto").html(nomEd);
+        }
+    });
+
+
+    $(".btn-danger").click(function () {
+        var id = $(this).parents("tr").find("td").eq(0).html();
+        var namep = $(this).parents("tr").find("td").eq(3).html();
+
+        alert(id + " - " + $("#ID_Area").val()+" - " + namep);
+        var dataString = new FormData();
+        dataString.append("IdProd", id);
+        dataString.append("IdArea", $("#ID_Area").val());
+        dataString.append("Nombre", namep);
+        alert("Hola 02");
+        $.ajax({
+            url: "@Url.Action("DeleteProducto", "Producto")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+    });
+
+
+
+</script>

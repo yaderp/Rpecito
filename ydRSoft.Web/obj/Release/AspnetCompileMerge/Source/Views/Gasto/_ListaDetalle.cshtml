@@ -1,0 +1,82 @@
+﻿
+
+@{
+    var vmLista = ViewBag.ListaDetalle;
+}
+
+@if (TempData["Error"] != null)
+{
+    if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success">
+            <strong>Felicidades!!!</strong> @TempData["Mensaje"].ToString()
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>Advertencia!!!</strong> @TempData["Error"].ToString()
+        </div>
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Cotizaciones </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Tipo</th>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.ListaDetalle != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="40%" align="left">@item.Tipo</td>
+                                        <td width="40%" align="left">@item.Nombre</td>
+                                        <td width="10%" align="right">@item.Cantidad</td>
+                                        <td width="10%" align="center">
+                                            <div class="btn-group">
+                                                <button class="btn-success btn btn-xs"> &nbsp;<i class="fa fa-edit"></i>  &nbsp;</button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn-danger btn btn-xs"> &nbsp;<i class="fa fa-trash"></i>  &nbsp; </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

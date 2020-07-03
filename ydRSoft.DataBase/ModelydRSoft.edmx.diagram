@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a07ceb6acac34118b059b7a039210157" Name="Diagram1" ZoomLevel="67">
+        <EntityTypeShape EntityType="ydRSoftWebModel.Alma_Tipo" Width="1.5" PointX="3.75" PointY="14.625" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Almacen" Width="1.5" PointX="6" PointY="13.625" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Area" Width="1.5" PointX="0.75" PointY="9.625" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Cargo" Width="1.5" PointX="10.75" PointY="5.875" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Cliente" Width="1.5" PointX="6" PointY="18.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Cliente_Credito" Width="1.5" PointX="0.75" PointY="13.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Cliente_Estado" Width="1.5" PointX="3.75" PointY="19.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Cliente_Pago" Width="1.5" PointX="10.75" PointY="9.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Cliente_Sede" Width="1.5" PointX="8.25" PointY="12.375" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Compra" Width="1.5" PointX="13.25" PointY="20.25" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Compra_Cuerpo" Width="1.5" PointX="3" PointY="22" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Compra_Detalle" Width="1.5" PointX="13.25" PointY="15.625" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Compra_Guia" Width="1.5" PointX="11" PointY="20.375" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Compra_Orden" Width="1.5" PointX="11" PointY="24.625" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Compra_Solicitud" Width="1.5" PointX="8.25" PointY="25" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Conexion" Width="1.5" PointX="0.75" PointY="16.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Cotiza_Detalle" Width="1.5" PointX="8.25" PointY="5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Cotizacion" Width="1.5" PointX="6" PointY="3.875" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Documento" Width="1.5" PointX="8.75" PointY="21.375" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Empleado" Width="1.5" PointX="13" PointY="4.875" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Gasto" Width="1.5" PointX="11" PointY="15.25" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Gasto_Tipo" Width="1.5" PointX="8.75" PointY="15" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Moneda" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Producto" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Proveedor" Width="1.5" PointX="8.75" PointY="18" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Receta" Width="1.5" PointX="8.25" PointY="9.25" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Sede" Width="1.5" PointX="6" PointY="22.75" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Serie_Numero" Width="1.5" PointX="10.75" PointY="12.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Venta" Width="1.5" PointX="11" PointY="28.75" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Venta_Cuerpo" Width="1.5" PointX="3" PointY="4" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Venta_Detalle" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Venta_Guia" Width="1.5" PointX="12.75" PointY="9.5" />
+        <EntityTypeShape EntityType="ydRSoftWebModel.Venta_Orden" Width="1.5" PointX="8.25" PointY="0.75" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Almacen_Tipo" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_C_Detalle_Alma" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_C_Sol_Alma" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Receta_Almacen" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Producto_Area" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Empleado_Cargo" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Cliente_Estado" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Sede_Cliente" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_V_Orden_Cliente" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Compra_Doc" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Compra_Guia" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_C_Cuerpo_Moneda" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_C_Detalle_Cuerpo" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_C_Guia_Prov" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_C_Orden_Prove" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_CotDetalle_Cotiza" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_CotDetalle_Prod" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_V_Orden_Cotiza" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Gasto_Prov" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Venta_Doc" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Gasto_Doc" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Gasto_Tipo" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_V_Cuerpo_Moneda" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_Receta_Producto" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_V_Detalle_Prod" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_V_Orden_Sede" />
+        <AssociationConnector Association="ydRSoftWebModel.FK_V_Detalle_Cuerpo" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

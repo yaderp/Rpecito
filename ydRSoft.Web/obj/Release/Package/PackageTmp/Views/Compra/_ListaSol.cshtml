@@ -1,0 +1,159 @@
+﻿@{
+    var vmLista = ViewBag.ListaSol;
+}
+
+
+<div class="col-md-12">
+    @if (TempData["Error"] != null)
+    {
+        if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-success">
+                <strong>Felicidades!!!</strong> @TempData["Mensaje"].ToString()
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <strong>Advertencia!!!</strong> @TempData["Error"].ToString()
+            </div>
+        }
+    }
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Solicitud de Compra </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Empleado</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.ListaSol != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td width="1%" style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="35%" align="left">@item.Fecha</td>
+                                        <td width="15%" align="left">@item.Nombre</td>
+                                        <td width="15%" align="left">@item.Cantidad</td>
+                                        <td width="15%" align="right">@item.ID_Empl</td>
+                                        <td width="14%" align="center">
+                                            <div class="btn-group">
+                                                <button class="btn-info btn btn-xs"> &nbsp;<i class="fa fa-send"></i>  &nbsp; Aprobar </button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn-danger btn btn-xs" data-toggle="modal" data-target="#modalEdit" id="btnModal"> &nbsp;<i class="fa fa-minus"></i> &nbsp; Rechazar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content">
+            <div class="modal-header" id="titulo">
+                <h2><strong> <span class="text-success" id="TituloEditar"> </span> </strong>  </h2> &nbsp; Cancelar
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="EditIdSol" hidden="hidden" />
+                
+                <div class="form-group  row">
+                    <div class="col-sm-12">
+                        Observacion :
+                        <input type="text" id="editObserv" class="form-control" placeholder="Observacion" />
+                    </div>                    
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+                <button type="button" id="ModalSave" class="btn btn-ydR-primary" data-dismiss="modal"> &nbsp; ENVIAR &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+   
+
+    $(".btn-info").click(function () {
+        vid = $(this).parents("tr").find("td").eq(0).html();
+
+        $.get("/Compra/AprobarSol", { IdSol: vid }, function (response) {
+            $("#resultado").hide("slow", function () {
+                $(this).html(response);
+                $(this).show("slow");
+            });
+        });
+    });
+
+    $(".btn-danger").click(function () {
+        vid = $(this).parents("tr").find("td").eq(0).html();
+        if (!isNaN(vid)) {
+            var nomEd = $(this).parents("tr").find("td").eq(3).html();
+            $("#EditIdSol").val(vid);
+            $("#TituloEditar").html(nomEd);
+        }
+    });
+
+    $("#ModalSave").click(function () {
+        var dataString = new FormData();
+        dataString.append("IdSol", $("#EditIdSol").val());
+        dataString.append("Obser", $("#editObserv").val());
+        $.ajax({
+            url: "@Url.Action("CancelSol", "Compra")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });                
+            }
+        });
+    });
+    
+
+</script>

@@ -1,0 +1,6 @@
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\bin\Release\ydRSoft.ydR.dll
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\bin\Release\ydRSoft.ydR.pdb
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\obj\Release\ydRSoft.ydR.csproj.CoreCompileInputs.cache
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\obj\Release\ydRSoft.ydR.dll
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\obj\Release\ydRSoft.ydR.pdb
+D:\ydRSoft_Web_R_Pecito\ydRSoftWeb\ydRSoft.ydR\obj\Release\ydRSoft.ydR.csprojAssemblyReference.cache

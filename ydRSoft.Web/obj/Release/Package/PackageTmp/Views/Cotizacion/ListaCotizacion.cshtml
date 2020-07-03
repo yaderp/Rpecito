@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Lista Cotizacion";
+    Layout = "~/Views/Shared/_LayoutVentas.cshtml";
+
+
+}
+
+<script>
+    window.onload = function() {
+        var dataString = new FormData();
+            dataString.append("IdCotiza", 0);
+            dataString.append("IdEstado", 0);
+
+
+            $.ajax({
+                url: "@Url.Action("OptionCotiza", "Cotizacion")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#Cantidad").val(0);
+                    $("#resultado").hide("slow", function () {
+                        $(this).html(response);
+                        $(this).show("slow");
+                    });
+                }
+            });
+    };
+
+</script>
+
+<div id="resultado"></div>
+
+
+
+@section scripts
+{
+
+    <script>
+
+
+
+    </script>
+}

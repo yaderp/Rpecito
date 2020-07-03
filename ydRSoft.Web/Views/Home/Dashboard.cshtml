@@ -1,0 +1,32 @@
+﻿
+
+<h2>Dashboard Inicio</h2>
+
+@*<button id="btnCrearYDescargar" class="btn btn-default">Crear y Descargar archivo</button>*@
+
+
+@section scripts
+{
+
+
+<script>
+    $('#btnCrearYDescargar').on("click", function () {
+        $.get('@Url.Action("CrearYDescargar","Home")', function (r) {
+            if (r.success === "ok") {
+                var dataUrl = 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' + r.file;
+                var a = document.createElement('a');
+                a.setAttribute("href", dataUrl);
+                a.setAttribute("download", 'Prueba.xlsx');
+                a.style.display = "none";
+                a.click();
+            }
+        });
+    });
+    
+</script> 
+    
+}
+
+
+    
+

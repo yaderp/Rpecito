@@ -1,0 +1,1048 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ydRSoftWebModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ydRSoftEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_Insert_Almacen">
+      <Parameter Name="idtipo" Mode="In" Type="Int32" />
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="detalle" Mode="In" Type="String" />
+      <Parameter Name="imagen" Mode="In" Type="Binary" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_Cliente">
+      <Parameter Name="ruc" Mode="In" Type="String" />
+      <Parameter Name="razsoc" Mode="In" Type="String" />
+      <Parameter Name="direc" Mode="In" Type="String" />
+      <Parameter Name="pago" Mode="In" Type="String" />
+      <Parameter Name="credito" Mode="In" Type="Int32" />
+      <Parameter Name="estado" Mode="In" Type="Int32" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_Compra">
+      <Parameter Name="idguia" Mode="In" Type="Int32" />
+      <Parameter Name="idsede" Mode="In" Type="Int32" />
+      <Parameter Name="iddoc" Mode="In" Type="Int32" />
+      <Parameter Name="serie" Mode="In" Type="String" />
+      <Parameter Name="numero" Mode="In" Type="String" />
+      <Parameter Name="fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="idempl" Mode="In" Type="String" />
+      <Parameter Name="inafecta" Mode="In" Type="Decimal" />
+      <Parameter Name="total" Mode="In" Type="Decimal" />
+      <Parameter Name="img" Mode="In" Type="Binary" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_CompraDetalle">
+      <Parameter Name="idcuerpo" Mode="In" Type="Int32" />
+      <Parameter Name="idalma" Mode="In" Type="Int32" />
+      <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="precio" Mode="In" Type="Decimal" />
+      <Parameter Name="total" Mode="In" Type="Decimal" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_CompraGuia">
+      <Parameter Name="idcom" Mode="In" Type="Int32" />
+      <Parameter Name="idsede" Mode="In" Type="Int32" />
+      <Parameter Name="idprov" Mode="In" Type="String" />
+      <Parameter Name="serie" Mode="In" Type="String" />
+      <Parameter Name="numero" Mode="In" Type="String" />
+      <Parameter Name="fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="idempl" Mode="In" Type="String" />
+      <Parameter Name="img" Mode="In" Type="Binary" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_CompraOrden">
+      <Parameter Name="idsede" Mode="In" Type="Int32" />
+      <Parameter Name="idprov" Mode="In" Type="String" />
+      <Parameter Name="idempl" Mode="In" Type="String" />
+      <Parameter Name="idmoneda" Mode="In" Type="Int32" />
+      <Parameter Name="cambio" Mode="In" Type="Decimal" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_CompraSol">
+      <Parameter Name="idsede" Mode="In" Type="Int32" />
+      <Parameter Name="idempl" Mode="In" Type="String" />
+      <Parameter Name="idalma" Mode="In" Type="Int32" />
+      <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_Cotizacion">
+      <Parameter Name="idsede" Mode="In" Type="Int32" />
+      <Parameter Name="ruc" Mode="In" Type="String" />
+      <Parameter Name="razsoc" Mode="In" Type="String" />
+      <Parameter Name="idempl" Mode="In" Type="String" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_CotizaDetalle">
+      <Parameter Name="idprod" Mode="In" Type="Int32" />
+      <Parameter Name="idcot" Mode="In" Type="Int32" />
+      <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="precio" Mode="In" Type="Decimal" />
+      <Parameter Name="detalle" Mode="In" Type="String" />
+      <Parameter Name="total" Mode="In" Type="Decimal" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_Empleado">
+      <Parameter Name="dni" Mode="In" Type="String" />
+      <Parameter Name="idcargo" Mode="In" Type="Int32" />
+      <Parameter Name="Nombres" Mode="In" Type="String" />
+      <Parameter Name="apellidos" Mode="In" Type="String" />
+      <Parameter Name="correo" Mode="In" Type="String" />
+      <Parameter Name="clave" Mode="In" Type="Binary" />
+      <Parameter Name="sexo" Mode="In" Type="Int32" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_Producto">
+      <Parameter Name="idarea" Mode="In" Type="Int32" />
+      <Parameter Name="Nombres" Mode="In" Type="String" />
+      <Parameter Name="detalle" Mode="In" Type="String" />
+      <Parameter Name="img" Mode="In" Type="Binary" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_Proveedor">
+      <Parameter Name="ruc" Mode="In" Type="String" />
+      <Parameter Name="razsocial" Mode="In" Type="String" />
+      <Parameter Name="direccion" Mode="In" Type="String" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Insert_Receta">
+      <Parameter Name="idprod" Mode="In" Type="Int32" />
+      <Parameter Name="idAlma" Mode="In" Type="Int32" />
+      <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Update_CompraSol">
+      <Parameter Name="idsol" Mode="In" Type="Int32" />
+      <Parameter Name="idalma" Mode="In" Type="Int32" />
+      <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Alma_Tipo" EntityType="ydRSoftWebModel.Alma_Tipo" />
+    <EntitySet Name="Almacen" EntityType="ydRSoftWebModel.Almacen" />
+    <EntitySet Name="Area" EntityType="ydRSoftWebModel.Area" />
+    <EntitySet Name="Cargo" EntityType="ydRSoftWebModel.Cargo" />
+    <EntitySet Name="Cliente" EntityType="ydRSoftWebModel.Cliente" />
+    <EntitySet Name="Cliente_Credito" EntityType="ydRSoftWebModel.Cliente_Credito" />
+    <EntitySet Name="Cliente_Estado" EntityType="ydRSoftWebModel.Cliente_Estado" />
+    <EntitySet Name="Cliente_Pago" EntityType="ydRSoftWebModel.Cliente_Pago" />
+    <EntitySet Name="Cliente_Sede" EntityType="ydRSoftWebModel.Cliente_Sede" />
+    <EntitySet Name="Compra" EntityType="ydRSoftWebModel.Compra" />
+    <EntitySet Name="Compra_Cuerpo" EntityType="ydRSoftWebModel.Compra_Cuerpo" />
+    <EntitySet Name="Compra_Detalle" EntityType="ydRSoftWebModel.Compra_Detalle" />
+    <EntitySet Name="Compra_Guia" EntityType="ydRSoftWebModel.Compra_Guia" />
+    <EntitySet Name="Compra_Orden" EntityType="ydRSoftWebModel.Compra_Orden" />
+    <EntitySet Name="Compra_Solicitud" EntityType="ydRSoftWebModel.Compra_Solicitud" />
+    <EntitySet Name="Conexion" EntityType="ydRSoftWebModel.Conexion" />
+    <EntitySet Name="Cotiza_Detalle" EntityType="ydRSoftWebModel.Cotiza_Detalle" />
+    <EntitySet Name="Cotizacion" EntityType="ydRSoftWebModel.Cotizacion" />
+    <EntitySet Name="Documento" EntityType="ydRSoftWebModel.Documento" />
+    <EntitySet Name="Empleado" EntityType="ydRSoftWebModel.Empleado" />
+    <EntitySet Name="Gasto" EntityType="ydRSoftWebModel.Gasto" />
+    <EntitySet Name="Gasto_Tipo" EntityType="ydRSoftWebModel.Gasto_Tipo" />
+    <EntitySet Name="Moneda" EntityType="ydRSoftWebModel.Moneda" />
+    <EntitySet Name="Producto" EntityType="ydRSoftWebModel.Producto" />
+    <EntitySet Name="Proveedor" EntityType="ydRSoftWebModel.Proveedor" />
+    <EntitySet Name="Receta" EntityType="ydRSoftWebModel.Receta" />
+    <EntitySet Name="Sede" EntityType="ydRSoftWebModel.Sede" />
+    <EntitySet Name="Serie_Numero" EntityType="ydRSoftWebModel.Serie_Numero" />
+    <EntitySet Name="Venta" EntityType="ydRSoftWebModel.Venta" />
+    <EntitySet Name="Venta_Cuerpo" EntityType="ydRSoftWebModel.Venta_Cuerpo" />
+    <EntitySet Name="Venta_Detalle" EntityType="ydRSoftWebModel.Venta_Detalle" />
+    <EntitySet Name="Venta_Guia" EntityType="ydRSoftWebModel.Venta_Guia" />
+    <EntitySet Name="Venta_Orden" EntityType="ydRSoftWebModel.Venta_Orden" />
+    <AssociationSet Name="FK_Almacen_Tipo" Association="ydRSoftWebModel.FK_Almacen_Tipo">
+      <End Role="Alma_Tipo" EntitySet="Alma_Tipo" />
+      <End Role="Almacen" EntitySet="Almacen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Detalle_Alma" Association="ydRSoftWebModel.FK_C_Detalle_Alma">
+      <End Role="Almacen" EntitySet="Almacen" />
+      <End Role="Compra_Detalle" EntitySet="Compra_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Sol_Alma" Association="ydRSoftWebModel.FK_C_Sol_Alma">
+      <End Role="Almacen" EntitySet="Almacen" />
+      <End Role="Compra_Solicitud" EntitySet="Compra_Solicitud" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receta_Almacen" Association="ydRSoftWebModel.FK_Receta_Almacen">
+      <End Role="Almacen" EntitySet="Almacen" />
+      <End Role="Receta" EntitySet="Receta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Area" Association="ydRSoftWebModel.FK_Producto_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Empleado_Cargo" Association="ydRSoftWebModel.FK_Empleado_Cargo">
+      <End Role="Cargo" EntitySet="Cargo" />
+      <End Role="Empleado" EntitySet="Empleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_Estado" Association="ydRSoftWebModel.FK_Cliente_Estado">
+      <End Role="Cliente_Estado" EntitySet="Cliente_Estado" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sede_Cliente" Association="ydRSoftWebModel.FK_Sede_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Cliente_Sede" EntitySet="Cliente_Sede" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Orden_Cliente" Association="ydRSoftWebModel.FK_V_Orden_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Venta_Orden" EntitySet="Venta_Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Compra_Doc" Association="ydRSoftWebModel.FK_Compra_Doc">
+      <End Role="Documento" EntitySet="Documento" />
+      <End Role="Compra" EntitySet="Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Compra_Guia" Association="ydRSoftWebModel.FK_Compra_Guia">
+      <End Role="Compra_Guia" EntitySet="Compra_Guia" />
+      <End Role="Compra" EntitySet="Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Cuerpo_Moneda" Association="ydRSoftWebModel.FK_C_Cuerpo_Moneda">
+      <End Role="Moneda" EntitySet="Moneda" />
+      <End Role="Compra_Cuerpo" EntitySet="Compra_Cuerpo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Detalle_Cuerpo" Association="ydRSoftWebModel.FK_C_Detalle_Cuerpo">
+      <End Role="Compra_Cuerpo" EntitySet="Compra_Cuerpo" />
+      <End Role="Compra_Detalle" EntitySet="Compra_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Guia_Prov" Association="ydRSoftWebModel.FK_C_Guia_Prov">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Compra_Guia" EntitySet="Compra_Guia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Orden_Prove" Association="ydRSoftWebModel.FK_C_Orden_Prove">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Compra_Orden" EntitySet="Compra_Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CotDetalle_Cotiza" Association="ydRSoftWebModel.FK_CotDetalle_Cotiza">
+      <End Role="Cotizacion" EntitySet="Cotizacion" />
+      <End Role="Cotiza_Detalle" EntitySet="Cotiza_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CotDetalle_Prod" Association="ydRSoftWebModel.FK_CotDetalle_Prod">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Cotiza_Detalle" EntitySet="Cotiza_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Orden_Cotiza" Association="ydRSoftWebModel.FK_V_Orden_Cotiza">
+      <End Role="Cotizacion" EntitySet="Cotizacion" />
+      <End Role="Venta_Orden" EntitySet="Venta_Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gasto_Prov" Association="ydRSoftWebModel.FK_Gasto_Prov">
+      <End Role="Documento" EntitySet="Documento" />
+      <End Role="Gasto" EntitySet="Gasto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venta_Doc" Association="ydRSoftWebModel.FK_Venta_Doc">
+      <End Role="Documento" EntitySet="Documento" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gasto_Doc" Association="ydRSoftWebModel.FK_Gasto_Doc">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Gasto" EntitySet="Gasto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gasto_Tipo" Association="ydRSoftWebModel.FK_Gasto_Tipo">
+      <End Role="Gasto_Tipo" EntitySet="Gasto_Tipo" />
+      <End Role="Gasto" EntitySet="Gasto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Cuerpo_Moneda" Association="ydRSoftWebModel.FK_V_Cuerpo_Moneda">
+      <End Role="Moneda" EntitySet="Moneda" />
+      <End Role="Venta_Cuerpo" EntitySet="Venta_Cuerpo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receta_Producto" Association="ydRSoftWebModel.FK_Receta_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Receta" EntitySet="Receta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Detalle_Prod" Association="ydRSoftWebModel.FK_V_Detalle_Prod">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Venta_Detalle" EntitySet="Venta_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Orden_Sede" Association="ydRSoftWebModel.FK_V_Orden_Sede">
+      <End Role="Sede" EntitySet="Sede" />
+      <End Role="Venta_Orden" EntitySet="Venta_Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Detalle_Cuerpo" Association="ydRSoftWebModel.FK_V_Detalle_Cuerpo">
+      <End Role="Venta_Cuerpo" EntitySet="Venta_Cuerpo" />
+      <End Role="Venta_Detalle" EntitySet="Venta_Detalle" />
+    </AssociationSet>
+    <FunctionImport Name="sp_Insert_Gasto">
+      <Parameter Name="idtipo" Mode="In" Type="Int32" />
+      <Parameter Name="iddoc" Mode="In" Type="Int32" />
+      <Parameter Name="idprov" Mode="In" Type="String" />
+      <Parameter Name="serie" Mode="In" Type="String" />
+      <Parameter Name="numero" Mode="In" Type="String" />
+      <Parameter Name="fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="inafecta" Mode="In" Type="Decimal" />
+      <Parameter Name="total" Mode="In" Type="Decimal" />
+      <Parameter Name="img" Mode="In" Type="Binary" />
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="Alma_Tipo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Almacen" Relationship="ydRSoftWebModel.FK_Almacen_Tipo" FromRole="Alma_Tipo" ToRole="Almacen" />
+  </EntityType>
+  <EntityType Name="Almacen">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Tipo" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Stock" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Cantidad_Orden" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Unidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Detalle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Alma_Tipo" Relationship="ydRSoftWebModel.FK_Almacen_Tipo" FromRole="Almacen" ToRole="Alma_Tipo" />
+    <NavigationProperty Name="Compra_Detalle" Relationship="ydRSoftWebModel.FK_C_Detalle_Alma" FromRole="Almacen" ToRole="Compra_Detalle" />
+    <NavigationProperty Name="Compra_Solicitud" Relationship="ydRSoftWebModel.FK_C_Sol_Alma" FromRole="Almacen" ToRole="Compra_Solicitud" />
+    <NavigationProperty Name="Receta" Relationship="ydRSoftWebModel.FK_Receta_Almacen" FromRole="Almacen" ToRole="Receta" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Producto" Relationship="ydRSoftWebModel.FK_Producto_Area" FromRole="Area" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Cargo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Empleado" Relationship="ydRSoftWebModel.FK_Empleado_Cargo" FromRole="Cargo" ToRole="Empleado" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="RUC" />
+    </Key>
+    <Property Name="RUC" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="RazSocial" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Pago" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Credito" Type="Int32" Nullable="false" />
+    <Property Name="Sede" Type="Int32" Nullable="false" />
+    <Property Name="ID_Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cliente_Estado" Relationship="ydRSoftWebModel.FK_Cliente_Estado" FromRole="Cliente" ToRole="Cliente_Estado" />
+    <NavigationProperty Name="Cliente_Sede" Relationship="ydRSoftWebModel.FK_Sede_Cliente" FromRole="Cliente" ToRole="Cliente_Sede" />
+    <NavigationProperty Name="Venta_Orden" Relationship="ydRSoftWebModel.FK_V_Orden_Cliente" FromRole="Cliente" ToRole="Venta_Orden" />
+  </EntityType>
+  <EntityType Name="Cliente_Credito">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Cliente_Estado">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cliente" Relationship="ydRSoftWebModel.FK_Cliente_Estado" FromRole="Cliente_Estado" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="Cliente_Pago">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Cliente_Sede">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Cliente" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cliente" Relationship="ydRSoftWebModel.FK_Sede_Cliente" FromRole="Cliente_Sede" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="Compra">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Sede" Type="Int32" Nullable="false" />
+    <Property Name="ID_Guia" Type="Int32" Nullable="false" />
+    <Property Name="ID_Doc" Type="Int32" Nullable="false" />
+    <Property Name="Serie" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ID_Empleado" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Inafecta" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Img" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Documento" Relationship="ydRSoftWebModel.FK_Compra_Doc" FromRole="Compra" ToRole="Documento" />
+    <NavigationProperty Name="Compra_Guia" Relationship="ydRSoftWebModel.FK_Compra_Guia" FromRole="Compra" ToRole="Compra_Guia" />
+  </EntityType>
+  <EntityType Name="Compra_Cuerpo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Moneda" Type="Int32" Nullable="false" />
+    <Property Name="TipoCambio" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+    <Property Name="Inafecta" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Igv" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Moneda" Relationship="ydRSoftWebModel.FK_C_Cuerpo_Moneda" FromRole="Compra_Cuerpo" ToRole="Moneda" />
+    <NavigationProperty Name="Compra_Detalle" Relationship="ydRSoftWebModel.FK_C_Detalle_Cuerpo" FromRole="Compra_Cuerpo" ToRole="Compra_Detalle" />
+  </EntityType>
+  <EntityType Name="Compra_Detalle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Cuerpo" Type="Int32" Nullable="false" />
+    <Property Name="ID_Alma" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Cant_Real" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Observ" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Almacen" Relationship="ydRSoftWebModel.FK_C_Detalle_Alma" FromRole="Compra_Detalle" ToRole="Almacen" />
+    <NavigationProperty Name="Compra_Cuerpo" Relationship="ydRSoftWebModel.FK_C_Detalle_Cuerpo" FromRole="Compra_Detalle" ToRole="Compra_Cuerpo" />
+  </EntityType>
+  <EntityType Name="Compra_Guia">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Sede" Type="Int32" Nullable="false" />
+    <Property Name="ID_Prov" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="Serie" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ID_Empleado" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ID_AProbado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Img" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Compra" Relationship="ydRSoftWebModel.FK_Compra_Guia" FromRole="Compra_Guia" ToRole="Compra" />
+    <NavigationProperty Name="Proveedor" Relationship="ydRSoftWebModel.FK_C_Guia_Prov" FromRole="Compra_Guia" ToRole="Proveedor" />
+  </EntityType>
+  <EntityType Name="Compra_Orden">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Sede" Type="Int32" Nullable="false" />
+    <Property Name="ID_Prov" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Empleado" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Proveedor" Relationship="ydRSoftWebModel.FK_C_Orden_Prove" FromRole="Compra_Orden" ToRole="Proveedor" />
+  </EntityType>
+  <EntityType Name="Compra_Solicitud">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Sede" Type="Int32" Nullable="false" />
+    <Property Name="ID_Empleado" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Aprobado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Alma" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Observacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Almacen" Relationship="ydRSoftWebModel.FK_C_Sol_Alma" FromRole="Compra_Solicitud" ToRole="Almacen" />
+  </EntityType>
+  <EntityType Name="Conexion">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="RUC" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="Facebook" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Pagweb" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="OtroUrl" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="Cotiza_Detalle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Producto" Type="Int32" Nullable="false" />
+    <Property Name="ID_Cotiza" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+    <Property Name="Detalle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cotizacion" Relationship="ydRSoftWebModel.FK_CotDetalle_Cotiza" FromRole="Cotiza_Detalle" ToRole="Cotizacion" />
+    <NavigationProperty Name="Producto" Relationship="ydRSoftWebModel.FK_CotDetalle_Prod" FromRole="Cotiza_Detalle" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Cotizacion">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Sede" Type="Int32" Nullable="false" />
+    <Property Name="RUC" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="RazSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+    <Property Name="ID_Empleado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Aprobado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Cotiza_Detalle" Relationship="ydRSoftWebModel.FK_CotDetalle_Cotiza" FromRole="Cotizacion" ToRole="Cotiza_Detalle" />
+    <NavigationProperty Name="Venta_Orden" Relationship="ydRSoftWebModel.FK_V_Orden_Cotiza" FromRole="Cotizacion" ToRole="Venta_Orden" />
+  </EntityType>
+  <EntityType Name="Documento">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Compra" Relationship="ydRSoftWebModel.FK_Compra_Doc" FromRole="Documento" ToRole="Compra" />
+    <NavigationProperty Name="Gasto" Relationship="ydRSoftWebModel.FK_Gasto_Prov" FromRole="Documento" ToRole="Gasto" />
+    <NavigationProperty Name="Venta" Relationship="ydRSoftWebModel.FK_Venta_Doc" FromRole="Documento" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="DNI" />
+    </Key>
+    <Property Name="DNI" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Cargo" Type="Int32" Nullable="false" />
+    <Property Name="Nombres" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Apellidos" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Clave" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Nac" Type="DateTime" Precision="0" />
+    <Property Name="Sexo" Type="Byte" Nullable="false" />
+    <Property Name="Img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Fecha_Fin" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cargo" Relationship="ydRSoftWebModel.FK_Empleado_Cargo" FromRole="Empleado" ToRole="Cargo" />
+  </EntityType>
+  <EntityType Name="Gasto">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Tipo" Type="Int32" Nullable="false" />
+    <Property Name="ID_doc" Type="Int32" Nullable="false" />
+    <Property Name="ID_Prov" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="Serie" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="Inafecta" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="Fecha_reg" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Documento" Relationship="ydRSoftWebModel.FK_Gasto_Prov" FromRole="Gasto" ToRole="Documento" />
+    <NavigationProperty Name="Proveedor" Relationship="ydRSoftWebModel.FK_Gasto_Doc" FromRole="Gasto" ToRole="Proveedor" />
+    <NavigationProperty Name="Gasto_Tipo" Relationship="ydRSoftWebModel.FK_Gasto_Tipo" FromRole="Gasto" ToRole="Gasto_Tipo" />
+  </EntityType>
+  <EntityType Name="Gasto_Tipo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Gasto" Relationship="ydRSoftWebModel.FK_Gasto_Tipo" FromRole="Gasto_Tipo" ToRole="Gasto" />
+  </EntityType>
+  <EntityType Name="Moneda">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Cambio" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
+    <Property Name="Detalle" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Compra_Cuerpo" Relationship="ydRSoftWebModel.FK_C_Cuerpo_Moneda" FromRole="Moneda" ToRole="Compra_Cuerpo" />
+    <NavigationProperty Name="Venta_Cuerpo" Relationship="ydRSoftWebModel.FK_V_Cuerpo_Moneda" FromRole="Moneda" ToRole="Venta_Cuerpo" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Area" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Stock" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Cantidad_Min" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Unidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+    <Property Name="Detalle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Area" Relationship="ydRSoftWebModel.FK_Producto_Area" FromRole="Producto" ToRole="Area" />
+    <NavigationProperty Name="Cotiza_Detalle" Relationship="ydRSoftWebModel.FK_CotDetalle_Prod" FromRole="Producto" ToRole="Cotiza_Detalle" />
+    <NavigationProperty Name="Receta" Relationship="ydRSoftWebModel.FK_Receta_Producto" FromRole="Producto" ToRole="Receta" />
+    <NavigationProperty Name="Venta_Detalle" Relationship="ydRSoftWebModel.FK_V_Detalle_Prod" FromRole="Producto" ToRole="Venta_Detalle" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="RUC" />
+    </Key>
+    <Property Name="RUC" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="RazSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Compra_Guia" Relationship="ydRSoftWebModel.FK_C_Guia_Prov" FromRole="Proveedor" ToRole="Compra_Guia" />
+    <NavigationProperty Name="Compra_Orden" Relationship="ydRSoftWebModel.FK_C_Orden_Prove" FromRole="Proveedor" ToRole="Compra_Orden" />
+    <NavigationProperty Name="Gasto" Relationship="ydRSoftWebModel.FK_Gasto_Doc" FromRole="Proveedor" ToRole="Gasto" />
+  </EntityType>
+  <EntityType Name="Receta">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Producto" Type="Int32" Nullable="false" />
+    <Property Name="ID_Almacen" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Almacen" Relationship="ydRSoftWebModel.FK_Receta_Almacen" FromRole="Receta" ToRole="Almacen" />
+    <NavigationProperty Name="Producto" Relationship="ydRSoftWebModel.FK_Receta_Producto" FromRole="Receta" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Sede">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="Empleado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Venta_Orden" Relationship="ydRSoftWebModel.FK_V_Orden_Sede" FromRole="Sede" ToRole="Venta_Orden" />
+  </EntityType>
+  <EntityType Name="Serie_Numero">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Serie" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Empleado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Doc" Type="Int32" Nullable="false" />
+    <Property Name="Serie" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Documento" Relationship="ydRSoftWebModel.FK_Venta_Doc" FromRole="Venta" ToRole="Documento" />
+  </EntityType>
+  <EntityType Name="Venta_Cuerpo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Moneda" Type="Int32" Nullable="false" />
+    <Property Name="Cambio" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
+    <Property Name="Inafecta" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Descuento" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Base" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="IGV" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="Moneda" Relationship="ydRSoftWebModel.FK_V_Cuerpo_Moneda" FromRole="Venta_Cuerpo" ToRole="Moneda" />
+    <NavigationProperty Name="Venta_Detalle" Relationship="ydRSoftWebModel.FK_V_Detalle_Cuerpo" FromRole="Venta_Cuerpo" ToRole="Venta_Detalle" />
+  </EntityType>
+  <EntityType Name="Venta_Detalle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Empleado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Cuerpo" Type="Int32" Nullable="false" />
+    <Property Name="ID_Producto" Type="Int32" Nullable="false" />
+    <Property Name="Detalle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+    <Property Name="Descuento" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Base" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Igv" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="ydRSoftWebModel.FK_V_Detalle_Prod" FromRole="Venta_Detalle" ToRole="Producto" />
+    <NavigationProperty Name="Venta_Cuerpo" Relationship="ydRSoftWebModel.FK_V_Detalle_Cuerpo" FromRole="Venta_Detalle" ToRole="Venta_Cuerpo" />
+  </EntityType>
+  <EntityType Name="Venta_Guia">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Empleado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Serie" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Licencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Placa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Modelo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Venta_Orden">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_Sede" Type="Int32" Nullable="false" />
+    <Property Name="ID_Cotiza" Type="Int32" Nullable="false" />
+    <Property Name="ID_Cliente" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Empleado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Serie" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Cliente" Relationship="ydRSoftWebModel.FK_V_Orden_Cliente" FromRole="Venta_Orden" ToRole="Cliente" />
+    <NavigationProperty Name="Cotizacion" Relationship="ydRSoftWebModel.FK_V_Orden_Cotiza" FromRole="Venta_Orden" ToRole="Cotizacion" />
+    <NavigationProperty Name="Sede" Relationship="ydRSoftWebModel.FK_V_Orden_Sede" FromRole="Venta_Orden" ToRole="Sede" />
+  </EntityType>
+  <Association Name="FK_Almacen_Tipo">
+    <End Type="ydRSoftWebModel.Alma_Tipo" Role="Alma_Tipo" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Almacen" Role="Almacen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alma_Tipo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Almacen">
+        <PropertyRef Name="ID_Tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Detalle_Alma">
+    <End Type="ydRSoftWebModel.Almacen" Role="Almacen" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Compra_Detalle" Role="Compra_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Almacen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra_Detalle">
+        <PropertyRef Name="ID_Alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Sol_Alma">
+    <End Type="ydRSoftWebModel.Almacen" Role="Almacen" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Compra_Solicitud" Role="Compra_Solicitud" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Almacen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra_Solicitud">
+        <PropertyRef Name="ID_Alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receta_Almacen">
+    <End Type="ydRSoftWebModel.Almacen" Role="Almacen" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Receta" Role="Receta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Almacen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Receta">
+        <PropertyRef Name="ID_Almacen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Area">
+    <End Type="ydRSoftWebModel.Area" Role="Area" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Producto" Role="Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="ID_Area" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Empleado_Cargo">
+    <End Type="ydRSoftWebModel.Cargo" Role="Cargo" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Empleado" Role="Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cargo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="ID_Cargo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_Estado">
+    <End Type="ydRSoftWebModel.Cliente_Estado" Role="Cliente_Estado" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Cliente" Role="Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente_Estado">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="ID_Estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sede_Cliente">
+    <End Type="ydRSoftWebModel.Cliente" Role="Cliente" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Cliente_Sede" Role="Cliente_Sede" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Cliente_Sede">
+        <PropertyRef Name="ID_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Orden_Cliente">
+    <End Type="ydRSoftWebModel.Cliente" Role="Cliente" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Venta_Orden" Role="Venta_Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Venta_Orden">
+        <PropertyRef Name="ID_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Compra_Doc">
+    <End Type="ydRSoftWebModel.Documento" Role="Documento" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Compra" Role="Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra">
+        <PropertyRef Name="ID_Doc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Compra_Guia">
+    <End Type="ydRSoftWebModel.Compra_Guia" Role="Compra_Guia" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Compra" Role="Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compra_Guia">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra">
+        <PropertyRef Name="ID_Guia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Cuerpo_Moneda">
+    <End Type="ydRSoftWebModel.Moneda" Role="Moneda" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Compra_Cuerpo" Role="Compra_Cuerpo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Moneda">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra_Cuerpo">
+        <PropertyRef Name="ID_Moneda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Detalle_Cuerpo">
+    <End Type="ydRSoftWebModel.Compra_Cuerpo" Role="Compra_Cuerpo" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Compra_Detalle" Role="Compra_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compra_Cuerpo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra_Detalle">
+        <PropertyRef Name="ID_Cuerpo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Guia_Prov">
+    <End Type="ydRSoftWebModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Compra_Guia" Role="Compra_Guia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Compra_Guia">
+        <PropertyRef Name="ID_Prov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Orden_Prove">
+    <End Type="ydRSoftWebModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Compra_Orden" Role="Compra_Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Compra_Orden">
+        <PropertyRef Name="ID_Prov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CotDetalle_Cotiza">
+    <End Type="ydRSoftWebModel.Cotizacion" Role="Cotizacion" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Cotiza_Detalle" Role="Cotiza_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cotizacion">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cotiza_Detalle">
+        <PropertyRef Name="ID_Cotiza" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CotDetalle_Prod">
+    <End Type="ydRSoftWebModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Cotiza_Detalle" Role="Cotiza_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cotiza_Detalle">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Orden_Cotiza">
+    <End Type="ydRSoftWebModel.Cotizacion" Role="Cotizacion" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Venta_Orden" Role="Venta_Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cotizacion">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Orden">
+        <PropertyRef Name="ID_Cotiza" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gasto_Prov">
+    <End Type="ydRSoftWebModel.Documento" Role="Documento" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Gasto" Role="Gasto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Gasto">
+        <PropertyRef Name="ID_Tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venta_Doc">
+    <End Type="ydRSoftWebModel.Documento" Role="Documento" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Venta" Role="Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="ID_Doc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gasto_Doc">
+    <End Type="ydRSoftWebModel.Proveedor" Role="Proveedor" Multiplicity="0..1" />
+    <End Type="ydRSoftWebModel.Gasto" Role="Gasto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Gasto">
+        <PropertyRef Name="ID_Prov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gasto_Tipo">
+    <End Type="ydRSoftWebModel.Gasto_Tipo" Role="Gasto_Tipo" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Gasto" Role="Gasto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gasto_Tipo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Gasto">
+        <PropertyRef Name="ID_doc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Cuerpo_Moneda">
+    <End Type="ydRSoftWebModel.Moneda" Role="Moneda" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Venta_Cuerpo" Role="Venta_Cuerpo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Moneda">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Cuerpo">
+        <PropertyRef Name="ID_Moneda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receta_Producto">
+    <End Type="ydRSoftWebModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Receta" Role="Receta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Receta">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Detalle_Prod">
+    <End Type="ydRSoftWebModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Venta_Detalle" Role="Venta_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Detalle">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Orden_Sede">
+    <End Type="ydRSoftWebModel.Sede" Role="Sede" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Venta_Orden" Role="Venta_Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sede">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Orden">
+        <PropertyRef Name="ID_Sede" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Detalle_Cuerpo">
+    <End Type="ydRSoftWebModel.Venta_Cuerpo" Role="Venta_Cuerpo" Multiplicity="1" />
+    <End Type="ydRSoftWebModel.Venta_Detalle" Role="Venta_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta_Cuerpo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Detalle">
+        <PropertyRef Name="ID_Cuerpo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

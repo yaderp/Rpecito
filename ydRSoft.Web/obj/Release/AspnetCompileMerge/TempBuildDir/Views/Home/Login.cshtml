@@ -1,0 +1,76 @@
+﻿@model ydRSoft.Model.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ydRSoft.ydR.Variable.EMPRESA_LOG | Login</title>
+
+    <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/animate.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet">
+    <link rel="icon" href="~/paw.ico" />
+</head>
+<body class="gray-bg text-success">
+
+    <div class="text-center">
+        <h2><strong> @ydRSoft.ydR.Variable.LOGO</strong></h2>
+        <h1 class="logo-name"></h1>
+    </div>
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            @if (Model.Error)
+            {
+                <p>
+                    <img width="40" src="~/Content/img/avatar/hombre.png" />
+                </p>
+                <p>Contactese con el administrador ...</p>
+                <p><strong>yaderch@gmail.com</strong></p>
+            }
+            else
+            {
+                <p>
+                    Bienvenido
+                </p>
+                <h3>@ydRSoft.ydR.Variable.EMPRESA</h3>
+                <p>Inicie sesión para continuar...</p>
+                <form role="form" method="post" action="@Url.Action("Login","Home")">
+                    @Html.HiddenFor(x => x.Nombre)
+                    @Html.HiddenFor(x => x.Error)
+                    <div class="form-group  row">
+                        <div class="col-sm-12">
+                            @Html.TextBoxFor(x => x.DNI, new { @class = "form-control text-success", placeholder = "DNI" })
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <div class="col-sm-12">
+                            @Html.PasswordFor(x => x.Clave, new { @class = "form-control text-success", placeholder = "Contraseña" })
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success block full-width m-b">Inicio Sesión</button>
+
+                    <small class="text-muted">¿Se te olvidó su contraseña?</small>
+                    <a class="text-danger" href="#">Aqui</a>
+                </form>
+                <p class="m-t"> ydRSoft <small> &copy; @DateTime.Now.Year</small> </p>
+                <br />
+                if (TempData["Mensaje"] != null)
+                {
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-danger">
+                                <strong>Error!! </strong> @TempData["Mensaje"].ToString()
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>
+

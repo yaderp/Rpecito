@@ -1,0 +1,160 @@
+﻿
+
+@{
+    ViewBag.Title = "Producto";
+    Layout = "~/Views/Shared/_LayoutProduccion.cshtml";
+}
+
+<style>
+    .ydRImg img {
+        width: auto;
+        max-height: 150px;
+    }
+</style>
+
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert ">
+        <strong>Advertencia!</strong> @TempData["Mensaje"].ToString()
+    </div>
+}
+else
+{
+    <div class="ibox-title">
+        <strong>Productos  </strong> !!!
+    </div>
+
+    <div class="col-lg-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4><small> Agregar</small> Producto </h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row col-lg-12">
+                    <div class="col-lg-6">
+                        @if (ViewBag.ListaArea != null)
+                        {
+                            <div class="form-group  row">
+                                <label class="col-sm-4 col-form-label">Area </label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownList("ID_Area", ViewBag.ListaArea as SelectList, new { @class = "btn btn-default" })
+                                </div>
+
+                            </div>
+                        }
+
+                        <div class="form-group  row">
+                            <label class="col-sm-4 col-form-label">Nombre</label>
+                            <div class="col-sm-8" style="text-transform:uppercase">
+                                @Html.TextBox("Nombre", "", new { @class = "form-control", placeholder = "Nombre" })
+                            </div>
+                        </div>
+
+                        <div class="form-group  row">
+                            <label class="col-sm-4 col-form-label">Imagen</label>
+                            <div class="col-sm-8">
+                                <input type="file" id="fileUpload" accept="image/png, image/jpeg" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ydRImg">
+                        <div id="imagePreview">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                @*<div class="form-group  row">
+                        <label class="col-sm-2 col-form-label">Imagen</label>
+                        <div class="col-sm-4">
+                            <input type="file" id="fileUpload" accept=".doc,.docx" />
+                        </div>
+                    </div>*@
+
+                @*<div class="form-group  row">
+                        <label class="col-sm-2 col-form-label">Imagen</label>
+                        <div class="custom-file col-sm-4">
+                            <input id="logo" type="file" class="custom-file-input">
+                            <label for="logo" class="custom-file-label">Seleccione archivo</label>
+                        </div>
+                    </div>*@
+
+            </div>
+            <div class="panel-footer">
+                <div class="col-sm-2">
+                    <button class="btn btn-success" type="button" id="buttonAdd">  AGREGAR PRODUCTO &nbsp <i class="fa fa-diamond"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<div id="resultado"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+
+            function filePreview(input) {
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $("#imagePreview").html("<img src= '" + e.target.result + "' />");
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            };
+
+            $("#fileUpload").change(function () {
+                filePreview(this);
+            });
+
+        $("#buttonAdd").click(function () {
+            var selectFile = ($("#fileUpload"))[0].files[0];
+            var vid = parseInt($("#ID_Area").val());
+            var dataString = new FormData();
+
+            if (isNaN(vid)) vid = 0;
+
+            dataString.append("IdArea", vid);
+            dataString.append("Nombre", $("#Nombre").val());
+            dataString.append("fileUpload", selectFile);
+
+            $.ajax({
+                url: "@Url.Action("AddProducto", "Producto")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                //async: false,
+                success: function (response) {
+                    $("#resultado").hide("slow", function () {
+                        $(this).html(response);
+                        $(this).show("slow");
+                    });
+                }
+            });
+        });
+    });
+    </script>
+}

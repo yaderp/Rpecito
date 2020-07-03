@@ -1,0 +1,187 @@
+﻿ 
+@{
+    ydRSoft.Model.EmpleadoModel objEmpleado = (ydRSoft.Model.EmpleadoModel)Session["objEmpleado"];
+    string vmNombre = string.Empty;
+    string vmCargo = string.Empty;
+    string vmDNI = string.Empty;
+    string vmCorreo = string.Empty;
+    int IdCargo = 0;
+    int vmSexo = 1;
+    if (objEmpleado != null)
+    {
+        vmNombre = objEmpleado.Nombres;
+        vmDNI = objEmpleado.DNI;
+        vmCorreo = objEmpleado.Correo;
+        IdCargo = objEmpleado.ID_Cargo;
+        vmCargo = objEmpleado.Cargo;
+        vmSexo = objEmpleado.ID_Sexo;
+    }
+    else
+    {
+        @*<script> window.location.href='@Url.Action("Index", "Home")'; </script>*@
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ydRSoft.ydR.Variable.EMPRESA</title>
+    <link rel="icon" href="~/paw.ico" />
+    <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/animate.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/styleyader.css" )" rel="stylesheet">
+
+    @Styles.Render("~/Content/css");
+
+</head>
+<body class="">
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            @if (vmSexo == 1)
+                            {<img alt="image" class="rounded-circle" src="~/Content/img/avatar/hombre.png" width="48" />}
+                            else
+                            { <img alt="image" class="rounded-circle" src="~/Content/img/avatar/mujer.png" width="48" />}
+
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold">@vmNombre</span>
+                                <span class="text-muted text-xs block">@vmCargo <b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a class="dropdown-item" href="@Url.Action("Dashboard","Empleado")"> Mi Perfil</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Dashboard","Empleado")">Actividades</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Dashboard","Empleado")">configuracion</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Logout", "Home")">Cerrar Sesion</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            @ydRSoft.ydR.Variable.LOGO
+                        </div>
+                    </li>
+                    @if (IdCargo == 9)
+                    {
+                        <li>
+                            <a href="@Url.Action("Dashboard", "Home")"><i class="fa fa-th-large"></i> <span class="nav-label">INICIO</span></a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Dashboard", "Logistica")"><i class="fa fa-laptop"></i> <span class="nav-label">PRINCIPAL</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Solicitud", "Compra")"> <span class="nav-label"> &nbsp; Solicitud</span> <span class="float-left label label-primary">01</span> </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListaSol", "Compra")"> <span class="nav-label">&nbsp; Lista Sol</span><span class="float-left label label-primary">02</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("OrdenCompra", "Compra")"> <span class="nav-label">&nbsp; Orden</span><span class="float-left label label-primary">03</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListaOrden", "Compra")"> <span class="nav-label">&nbsp; Lista Orden</span><span class="float-left label label-primary">04</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListaNewGuia", "Compra")"> <span class="nav-label">&nbsp; Lista Guia</span><span class="float-left label label-primary">06</span></a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("GuiaApro", "Compra")"> <span class="nav-label">&nbsp; Guias Aprob</span><span class="float-left label label-primary">07</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ListaComp", "Compra")"> <span class="nav-label">&nbsp; Lista Compra</span><span class="float-left label label-primary">08</span></a>
+                        </li>
+                    }
+
+                    @if (IdCargo == 1 || IdCargo == 9)
+                    {
+                        <li>
+                            <a href="@Url.Action("Dashboard","Empleado")"><i class="fa fa-users"></i> <span class="nav-label">EMPLEADO</span></a>
+                        </li>
+                    }
+
+                    @if (IdCargo == 2 || IdCargo == 9)
+                    {
+                        <li>
+                            <a href="@Url.Action("Dashboard","Venta")"><i class="fa fa-shopping-cart"></i> <span class="nav-label">VENTAS</span></a>
+                        </li>
+                    }
+
+                    @if (IdCargo == 3 || IdCargo == 9)
+                    {
+                        <li>
+                            <a href="@Url.Action("Dashboard","Produccion")"><i class="fa fa-pagelines"></i> <span class="nav-label">PRODUCCION</span></a>
+                        </li>
+                    }
+                    @if (IdCargo == 4 || IdCargo == 9)
+                    {
+                        <li>
+                            <a href="@Url.Action("Dashboard","Logistica")"><i class="fa fa-share-alt"></i> <span class="nav-label">LOGISTICA</span></a>
+                        </li>
+                    }
+                    @if (IdCargo == 5 || IdCargo == 9)
+                    {
+                        <li>
+                            <a href="@Url.Action("Dashboard","Contabilidad")"><i class="fa fa-calculator"></i> <span class="nav-label">CONTABILIDAD</span></a>
+                        </li>
+                    }
+                    @if (IdCargo == 6 || IdCargo == 9)
+                    {
+                        <li>
+                            <a href="@Url.Action("Dashboard","Finanzas")"><i class="fa fa-bank"></i> <span class="nav-label">FINANZAS</span></a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+        <!-- Contenido  Inicio -->
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-left">
+                        <li>
+                            <span class="m-r-sm text-success welcome-message"><strong> @ydRSoft.ydR.Variable.EMPRESA </strong> &nbsp; &nbsp; Te da la bienvenida</span>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="@Url.Action("Logout", "Home")">
+                                <i class="fa fa-sign-out"></i> Salir
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            @RenderBody()
+            @Scripts.Render("~/Content/js/jquery-3.1.1.min.js")
+            @RenderSection("scripts", required: false)
+            <div class="footer">
+                <div class="float-right">
+                    ydR <strong>CH</strong>
+                </div>
+                <div>
+                    <strong>Copyright</strong>  &copy; @DateTime.Now.Year
+                </div>
+            </div>
+        </div>
+        <!-- Contenido  Fin -->
+    </div>
+    <script src="@Url.Content("~/Content/js/popper.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/jquery-3.1.1.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/metisMenu/jquery.metisMenu.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/slimscroll/jquery.slimscroll.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/bootstrap.js")"></script>
+    <script src="@Url.Content("~/Content/js/inspinia.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/pace/pace.min.js")"></script>
+</body>
+</html>

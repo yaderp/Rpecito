@@ -1,0 +1,231 @@
+﻿
+
+@{
+    var vmLista = ViewBag.ListaAlmacen;
+}
+
+@if (TempData["Error"] != null)
+{
+    if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success">
+            <strong>Felicidades!!!</strong> @TempData["Mensaje"].ToString()
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>Advertencia!!!</strong> @TempData["Error"].ToString()
+        </div>
+    }
+}
+@*<div class="col-sm-12">
+    <div class="col-sm-4">
+        <div class="input-group m-b">
+            <span class="input-group-prepend">
+                <button id="btnBuscar" type="button" class="btn btn-ydR-warnig">Mostrar</button>
+            </span> <input id="nomAlma" type="text" class="form-control" placeholder="Nombre">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <span id="spanDatos"> </span>
+
+    </div>
+</div>*@
+
+<div class="row text-success">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success">
+                <div class="ibox-content">
+                    <table class="table table-bordered" id="mytable">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>AREA</th>
+                                <th>Nombre</th>
+                                <th>Stock</th>
+
+                                <th>Opcion</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in vmLista)
+                            {
+                                <tr>
+                                    <td style="visibility:hidden" width="1%">@item.ID</td>
+                                    <td width="5%" align="center">@item.Codigo</td>
+                                    <td width="20%" align="left">@item.Area</td>
+                                    <td width="40%" align="left">@item.Nombre</td>
+                                    <td width="14%" align="right">@item.Stock</td>
+                                    <td width="20%" align="center">
+                                        <div class="btn-group">
+                                            <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#modalEdit"> &nbsp;<i class="fa fa-edit"></i> &nbsp; Editar</button>
+                                            &nbsp;&nbsp;
+                                            <button class="btn-danger btn btn-xs"> &nbsp;<i class="fa fa-trash"></i>  &nbsp; Eliminar </button>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+
+                                <th></th>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content">
+            <div class="modal-header" id="titulo">
+                <h2><strong> <span class="text-success" id="TituloEditar"> </span> </strong>  </h2> &nbsp; EDITAR
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="EditIdAlma" hidden="hidden"  />
+                @if (ViewBag.ListaTipo != null)
+                {
+
+                <div class="form-group  row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        @Html.DropDownList("EditIdTipo", ViewBag.ListaTipo as SelectList,
+                                                "[- Tipo -]", new { @class = "btn btn-default col-sm-8" })
+                    </div>
+                </div>
+                }
+
+                <div class="form-group  row">
+                    <label class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="EditNombre" class="form-control" />
+                    </div>
+                </div>
+
+                @*<div class="form-group  row">
+                    <label class="col-sm-2 col-form-label">Imagen</label>
+                    <div class="col-sm-4">
+                        <input type="file" id="fileUpload" accept="image/png, image/jpeg" />
+                    </div>
+                </div>*@
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+                <button type="button" id="ModalSave" class="btn btn-ydR-primary" data-dismiss="modal"> &nbsp; Guardar Cambios &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("#ModalSave").click(function () {
+        if (!/^[0-9]*$/.test(parseInt($("#EditIdAlma").val()))) {
+            return;
+        }
+
+        var idTipoNew = $("#EditIdTipo").val();
+
+        var dataString = new FormData();
+        dataString.append("IdAlma", $("#EditIdAlma").val());        
+        dataString.append("IdTipo", $("#EditIdTipo").val());
+        dataString.append("Nombre", $("#EditNombre").val());
+        
+        $.ajax({
+            url: "@Url.Action("EditAlmacen", "Almacen")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+
+                $("#ID_Tipo").val(idTipoNew);
+
+            }
+        });
+    });
+
+
+
+    $("#btnBuscar").click(function () {
+        var palabra = $("#nomAlma").val();
+        var numero = parseInt($("#cantidadlista").val())
+
+        var table = document.getElementById("mytable");
+        for (var i = 1; i < table.rows.length - 1; i++) {
+            texto = table.rows[i].cells[3].innerHTML;
+            alert(texto);
+        }
+
+    });
+    
+
+    $(".btn-success").click(function () {
+        var id = $(this).parents("tr").find("td").eq(0).html();
+        if (!isNaN(id)) {
+            $("#EditIdAlma").val(id);
+            $("#TituloEditar").html($(this).parents("tr").find("td").eq(3).html());
+        }
+    });
+
+    $(".btn-danger").click(function () {
+        var id = $(this).parents("tr").find("td").eq(0).html();
+        var namea = $(this).parents("tr").find("td").eq(3).html();
+
+        var dataString = new FormData();
+        dataString.append("IdAlma", id);
+        dataString.append("IdTipo", $("#ID_Tipo").val());
+        dataString.append("Nombre", namea);
+        
+        $.ajax({
+            url: "@Url.Action("DeleteAlmacen", "Almacen")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+
+    });
+    
+</script>
+

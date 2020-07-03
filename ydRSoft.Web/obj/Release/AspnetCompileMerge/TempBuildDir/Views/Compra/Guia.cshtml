@@ -1,0 +1,297 @@
+﻿@model ydRSoft.Model.CompraGuiaModel
+
+@{
+    ViewBag.Title = "Guia";
+    string fmax = Model.Fecha;
+    //Layout = "~/Views/Shared/_LayoutLogistica.cshtml";
+}
+
+<style>
+    .ydRImg img {
+        width: auto;
+        max-height: 300px;
+    }
+</style>
+
+<script>
+    window.onload = function () {
+        loadInicio();
+    };
+</script>
+
+<div class="ibox-title ydR-titulo-success text-success">
+    <h2> <strong> Guia de Remision  </strong>  </h2> Compra &nbsp; &nbsp; &nbsp;<span class="text-success"> @DateTime.Now.ToString("D")</span>
+</div>
+
+<div class="row ydR-label-succes ydR-input text-success">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (Model.Estado > 0)
+                        {
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="row col-md-12">
+                                        <div class="col-md-12">
+                                            @Html.HiddenFor(x => x.ID)
+
+                                            @if (ViewBag.Sede != null)
+                                            {
+                                                <div class="form-group  row">
+                                                    <div class="col-sm-4">
+                                                        Sede:
+                                                        @Html.DropDownList("Sede", ViewBag.Sede as SelectList, new { @class = "btn btn-default text-success", disabled = "disabled" })
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        Orden Compra :
+                                                        @Html.TextBoxFor(x => x.Codigo, new { @class = "form-control text-success", disabled = "disabled" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group  row">
+                                                    <div class="col-sm-6">
+                                                        <input type="date" id="Fecha" class="form-control" max="@fmax" value="@fmax" disabled = "disabled" />
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        @Html.DropDownList("IdDoc", new SelectList(""), "GUIA REMISION", new { @class = "btn btn-default text-success", disabled = "disabled" })
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="form-group  row">
+                                                <div class="col-sm-4">
+                                                    @Html.TextBoxFor(x => x.RUC, new { @class = "form-control text-success", disabled = "disabled" })
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(x => x.RazSocial, new { @class = "form-control text-success", disabled = "disabled" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group  row">
+                                                <div class="col-sm-4">
+                                                    @Html.TextBoxFor(x => x.Serie, new { @class = "form-control text-success", placeholder = "Serie", disabled = "disabled" })
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    @Html.TextBoxFor(x => x.Numero, new { @class = "form-control text-success", placeholder = "Numero", disabled = "disabled" })
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </div>                               
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6">
+                                            @Html.HiddenFor(x => x.ID)
+
+                                            @if (ViewBag.Sede != null)
+                                            {
+                                                <div class="form-group  row">
+                                                    <div class="col-sm-4">
+                                                        Sede:
+                                                        @Html.DropDownList("Sede", ViewBag.Sede as SelectList, new { @class = "btn btn-default text-success" })
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        Orden Compra :
+                                                        @Html.TextBoxFor(x => x.Codigo, new { @class = "form-control text-success", disabled = "disabled" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group  row">
+                                                    <div class="col-sm-6">
+                                                        <input type="date" id="Fecha" class="form-control" max="@fmax" value="@fmax" />
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        @Html.DropDownList("IdDoc", new SelectList(""), "GUIA REMISION", new { @class = "btn btn-default text-success", disabled = "disabled" })
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="form-group  row">
+                                                <div class="col-sm-4">
+                                                    @Html.TextBoxFor(x => x.RUC, new { @class = "form-control text-success", disabled = "disabled" })
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(x => x.RazSocial, new { @class = "form-control text-success", disabled = "disabled" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group  row">
+                                                <div class="col-sm-4">
+                                                    @Html.TextBoxFor(x => x.Serie, new { @class = "form-control text-success", placeholder = "Serie" })
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    @Html.TextBoxFor(x => x.Numero, new { @class = "form-control text-success", placeholder = "Numero" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 ydRImg">
+                                            <div class="form-group  row">
+                                                <div class="col-sm-12">
+                                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg" />
+                                                </div>
+                                            </div>
+                                            <div id="imagePreview">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <button class="btn btn-success" type="button" id="btnSave"> &nbsp; GUARDAR  &nbsp; <i class="fa fa-save"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+            <div id="resultado"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+<script>
+    function loadInicio() {
+        var vid = @Model.ID;
+        loadDetalle(vid);
+       
+    };
+
+    function loadDetalle(vid) {
+
+        $.get("/Compra/GuiaDetalle", { IdCuerpo: vid, Codigo: "" }, function (data) {
+            $("#resultado").hide("slow", function () {
+                $(this).html(data);
+                $(this).show("slow");
+            });
+        });
+    };
+</script>
+
+    <script>        
+        function filePreview(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#imagePreview").html("<img src= '" + e.target.result + "' />");
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        $("#fileUpload").change(function () {
+            filePreview(this);
+        });
+
+    </script>
+
+    <script>
+        $("#btnSave").click(function () {
+            var selectFile = ($("#fileUpload"))[0].files[0];
+
+            if (selectFile == null) {
+                alert("Seleccione una Imagen!!!");
+                return;
+            } 
+
+            if ($("#Serie").val().length==0) {
+                alert("Ingrese Serie");
+                return;
+            }
+
+            if (isNaN(parseInt($("#Numero").val()))) {
+                alert("Ingrese Numero");
+                return;
+            }
+
+            if (isNaN(Date.parse($("#Fecha").val()))) {
+                alert("Fecha No Valida");
+                return;
+            }
+            
+            AddGuia();
+
+        });
+
+        function validarFecha() {
+            var fecha = new Date($("#Fecha").val());
+            var hoy = Date.now();
+            alert(fecha.getFullYear() + " = " + hoy.getFullYear());
+            alert(fecha.getDate() + " = " + hoy.getDate());
+            alert(fecha.getDay() + " = " + hoy.getDay());
+            
+
+        }
+
+        function AddGuia() {
+            var selectFile = ($("#fileUpload"))[0].files[0];
+
+            var dataString = new FormData();
+            dataString.append("ID", $("#ID").val());
+            dataString.append("Sede", $("#Sede").val());            
+            dataString.append("RUC", $("#RUC").val());
+            dataString.append("Serie", $("#Serie").val());
+            dataString.append("Numero", $("#Numero").val());
+            dataString.append("Fecha", $("#Fecha").val());
+            dataString.append("fileUpload", selectFile);
+
+            $.ajax({
+                url: "@Url.Action("AddGuia", "Compra")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                //async: false,
+                success: function (data) {
+                    if (data.ID > 0) {
+                        Limpiar();
+                    }
+                    alert(data.Mensaje);
+                }
+            });
+        };
+
+        function Limpiar() {
+           window.location.href='@Url.Action("ListaOrden", "Compra")';
+        }
+
+    </script>
+}
+
+

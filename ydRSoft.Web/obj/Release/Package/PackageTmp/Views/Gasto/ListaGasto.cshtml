@@ -1,0 +1,90 @@
+﻿
+
+@{
+    ViewBag.Title = "Lista Gasto";
+    Layout = "~/Views/Shared/_LayoutFinanzas.cshtml";
+
+}
+
+<script>
+    window.onload = function () {
+        CargarProd(1);
+    };
+</script>
+
+<div class="row ydR-label-succes ydR-input">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-default">
+                <div class="ibox-title ydR-titulo-success">
+
+                    <h2> <small> Lista </small> &nbsp; <strong>Productos </strong> </h2>
+
+                </div>
+                <div class="ibox-content">
+                    <div>
+
+                        @if (ViewBag.ListaTipo != null)
+                        {
+                            <div class="form-group  row">
+                                <div class="col-sm-4">
+                                    @Html.DropDownList("IdTipo", ViewBag.ListaTipo as SelectList
+                                                                , new { @class = "btn btn-default text-success" })
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="resultado"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $("#IdTipo").change(function () {
+            var vid = parseInt($("#IdTipo").val());
+            if (isNaN(vid)) vid = 0;
+            CargarGasto(vid);
+        });
+
+
+        function CargarGasto(vid) {
+            var dataString = new FormData();
+            dataString.append("IdTipo", vid);
+            $.ajax({
+                url: "@Url.Action("MostrarGastos", "Gasto")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#resultado").hide("slow", function () {
+                        $(this).html(response);
+                        $(this).show("slow");
+                    });
+                }
+            });
+        };
+
+    </script>
+}
+
+

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Lista Guia Nuevo";
+}
+
+<script>
+    window.onload = function () {
+        loadInicio();
+    };
+
+</script>
+<div id="resultado"></div>
+<div id="resultadoGuia"></div>
+
+@section scripts
+{
+    <script>
+        function loadInicio() {
+            $.get("/Compra/getNewGuia", function (response) {
+                $("#resultadoGuia").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            });
+        };
+    </script>
+}
+
+

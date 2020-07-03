@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Lista Guia Aprob";
+}
+
+<script>
+    window.onload = function () {
+        loadInicio();
+    };
+
+</script>
+<div id="resultado"></div>
+
+@section scripts
+{
+    <script>
+        function loadInicio() {
+            $.get("/Compra/getListaGuia", { IdEstado:@ydRSoft.ydR.Estado.ENVIADO}, function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            });
+        };
+    </script>
+}
+

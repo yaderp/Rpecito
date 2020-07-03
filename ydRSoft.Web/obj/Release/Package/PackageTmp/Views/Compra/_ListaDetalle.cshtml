@@ -1,0 +1,284 @@
+﻿
+@{
+    var vmLista = ViewBag.ListaDetalle;
+}
+
+<div class="row col-md-12">
+    <div class="col-md-6">
+        @if (TempData["Error"] != null)
+        {
+            if (TempData["Mensaje"] != null)
+            {
+                <div class="alert alert-success">
+                    <strong>Felicidades!!!</strong> @TempData["Mensaje"].ToString()
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <strong>Advertencia!!!</strong> @TempData["Error"].ToString()
+                </div>
+            }
+        }
+
+    </div>
+    <div class="col-md-6">
+        <button class="btn btn-info" id="sendOrd"> &nbsp;  ENVIAR &nbsp; <i class="fa fa-send"></i> &nbsp; </button>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Detalle Compra </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.ListaDetalle != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                            <tr>
+                                <td width="1%" style="visibility:hidden">@item.ID</td>
+                                <td width="5%" align="center">@item.Codigo</td>
+                                <td width="35%" align="left">@item.Nombre</td>
+                                <td width="15%" align="left">@item.Cantidad</td>
+                                <td width="15%" align="left">@item.Precio</td>
+                                <td width="15%" align="right">@item.Total</td>
+                                <td width="14%" align="center">
+                                    <div class="btn-group">
+                                        <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#modalEdit" id="btnModal"> &nbsp;<i class="fa fa-edit"></i> &nbsp; Editar</button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn-danger btn btn-xs"> &nbsp;<i class="fa fa-trash"></i>  &nbsp; </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content">
+            <div class="modal-header" id="titulo">
+                <h2><strong> <span class="text-success" id="TituloEditar"> </span> </strong>  </h2> &nbsp; EDITAR
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="EditIdDet" hidden="hidden" />
+                <div class="form-group  row">
+                    <div class="col-sm-3">
+                        @Html.DropDownList("ListaSol", new SelectList(""), new { @class = "btn btn-default text-success" })
+                    </div>
+                    <div class="col-sm-4 text-success">
+                        Cantidad Minima : <strong> <span class="text-success" id="EditCantMinima" style="font-size: 16px"></span> </strong>
+                    </div>
+
+                </div>
+                <div class="form-group  row">
+                    <div class="col-sm-4">
+                        Cantidad :
+                        <input type="number" id="Editcantidad" class="form-control" placeholder="Cantidad" />
+                    </div>
+                    <div class="col-sm-4">
+                        Precio :
+                        <input type="number" id="Editprecio" class="form-control" placeholder="Precio" />
+                    </div>
+                    <div class="col-sm-4">
+                        Total :
+                        <input type="number" id="Edittotal" class="form-control" placeholder="0.00" disabled="disabled" />
+                    </div>                    
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+                <button type="button" id="ModalSave" class="btn btn-ydR-primary" data-dismiss="modal"> &nbsp; Guardar Cambios &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $("#ModalSave").click(function () {
+        
+        var dataString = new FormData();
+        dataString.append("ID", $("#EditIdDet").val());
+        dataString.append("ID_Cuerpo", $("#IdOrden").val());
+        dataString.append("ID_Alma", $("#ListaSol").val());
+        dataString.append("Cantidad", $("#Editcantidad").val());
+        dataString.append("Precio", $("#Editprecio").val());
+        dataString.append("Total", $("#Edittotal").val());
+        $.ajax({
+            url: "@Url.Action("EditDetalle", "Compra")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                //$("#Cantidad").val("");
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+    });
+
+</script>
+
+
+
+<script>
+    $(".btn-danger").click(function () {
+        idd = $(this).parents("tr").find("td").eq(0).html();
+        ido = $("#IdOrden").val();
+
+        $.get("/Compra/DeleteDetalle", { IdDet: idd, IdCuerpo: ido }, function (response) {
+            $("#resultado").hide("slow", function () {
+                $(this).html(response);
+                $(this).show("slow");
+            });
+        });
+    });
+
+
+    $(".btn-success").click(function () {        
+        idp = $(this).parents("tr").find("td").eq(0).html();
+        nomp = $(this).parents("tr").find("td").eq(2).html();
+        prep = $(this).parents("tr").find("td").eq(4).html();
+
+        $("#EditIdDet").val(idp);
+        $("#TituloEditar").html(nomp); 
+        $("#Editprecio").val(prep);
+        EditloadListaSol(nomp);
+        
+    });
+
+    function EditloadListaSol(nomp) {
+        $.get("/Compra/JsonaListaSol", { ID_Tipo: 1 }, function (data) {
+            $("#EditCantMinima").html(data[0].Cantidad);
+            $("#Editcantidad").val(data[0].Cantidad);
+
+            $("#ListaSol").empty();
+            $.each(data, function (index, row) {
+                $("#ListaSol").append("<option value='" + row.ID + "'>" + row.Nombre + "</option>")
+            });
+            EditloadNombre(nomp);
+            EditCalculaTotal();
+        });
+    }
+
+    $("#ListaSol").change(function () {
+        var idprod = parseInt($("#ListaSol").val());
+        EditloadProd(idprod);
+        EditCalculaTotal
+    });
+
+    function EditloadProd(idprod) {
+        if (isNaN(idprod)) {
+            $("#Editcantidad").val(-1);
+        } else {
+            if (datalista != null) {
+                for (var i = 0; i < datalista.length; i++) {
+                    if (datalista[i].ID == idprod) {
+                        $("#Editcantidad").val(datalista[i].Cantidad);
+                        $("#EditCantMinima").html(datalista[i].Cantidad);
+                        CalculaTotal();
+                        return;
+                    }
+                }
+            } else {
+                alert("Intente en Otro Momento!!!");
+            }
+        }
+    }
+
+    function EditloadNombre(mprod) {
+        if (datalista != null) {
+            for (var i = 0; i < datalista.length; i++) {
+                if (datalista[i].Nombre == mprod) {
+                    $("#Editcantidad").val(datalista[i].Cantidad);
+                    $("#EditCantMinima").html(datalista[i].Cantidad);
+                    $("#ListaSol").val(datalista[i].ID);
+                    return;
+                }
+            }
+        } else {
+            alert("Intente en Otro Momento!!!");
+        }
+    }
+
+
+    $("#sendOrd").click(function () {
+        var vid = parseInt($("#IdOrden").val());
+        if (isNaN(vid)) return;
+
+        EnviarOrden(vid);
+    });
+
+     function EnviarOrden(vid) {
+         $.get("/Compra/JsonSendOrd", { IdOrden: vid }, function (data) {
+             if (data.ID > 0) {
+                 window.location.href = '@Url.Action("OrdenCompra", "Compra")';
+             } else {
+                 alert("Error al Intentar Guardar");
+             }
+         });
+    };
+
+    $("#Editcantidad").keyup(function () {
+        EditCalculaTotal();
+    });
+
+    $("#Editprecio").keyup(function () {
+        EditCalculaTotal();
+    });
+
+    function EditCalculaTotal() {
+        var cantidad = $("#Editcantidad").val();
+        var precio = $("#Editprecio").val();
+        var total = cantidad * precio;
+        total = total.toFixed(2);
+
+        $("#Edittotal").val(total);
+    };
+
+
+</script>

@@ -1,0 +1,370 @@
+﻿@{
+    ViewBag.Title = "Cotizacion";
+
+    Layout = "~/Views/Shared/_LayoutVentas.cshtml";
+    ydRSoft.Model.EmpleadoModel objEmpleado = (ydRSoft.Model.EmpleadoModel)Session["objEmpleado"];
+    string DniEmpl = string.Empty;
+    if (objEmpleado != null)
+    {
+        DniEmpl = objEmpleado.DNI;
+    }
+}
+
+<script>
+    window.onload = function () {
+        loadArea(1);
+    };
+</script>
+
+
+<div class="ibox-title ydR-titulo-success">
+    <h2> <strong> Cotizacion  </strong> - Venta  </h2> &nbsp; &nbsp; &nbsp;<span class="text-success"> @DateTime.Now.ToString("D")</span>
+</div>
+
+<div class="row ydR-label-succes ydR-input">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel" style="border-right-color:#1C84C6">
+                            <div class="panel-body">
+                                @if (ViewBag.Sede != null)
+                                {
+                                    <div class="form-group  row">
+                                        <label class="col-sm-2 col-form-label"> Sede </label>
+                                        <div class="col-sm-4">
+                                            @Html.DropDownList("Sede", ViewBag.Sede as SelectList, new { @class = "btn btn-default text-success" })
+                                        </div>
+
+                                    </div>
+                                }
+                                <div class="form-group  row">
+                                    <div class="col-sm-8">
+                                        <input type="text" id="RUC" class="form-control" placeholder="Nro RUC" />
+                                    </div>
+                                </div>
+                                <div class="form-group  row">
+                                    <div class="col-sm-6">
+                                        <span class="text-danger" id="spanResultado"></span>
+                                        <span class="text-success" id="spanRucValido"></span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group  row">
+                                    <div class="col-sm-12">
+                                        <input type="text" id="RazSocial" class="form-control" style="text-transform:uppercase" placeholder="Razon Social" />
+                                    </div>
+                                </div>
+                                <div class="form-group  row">
+                                    <div class="col-sm-12">
+                                        <input type="text" id="Direccion" class="form-control" style="text-transform:uppercase" placeholder="Direccion Fiscal" />
+                                    </div>
+                                </div>
+                                <div class="form-group  row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <button class="btn btn-block btn-ydR-success" type="button" id="buttonCab" hidden="hidden">  GUARDAR &nbsp; <i class="fa fa-share"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel">
+                            <div class="panel-body" id="panelAddProd" hidden="hidden">
+                                <div class="form-group  row">
+                                    <div class="col-sm-4">
+                                        <input type="text" id="IdCotiza" class="form-control" hidden="hidden" />
+                                    </div>
+                                </div>
+                                @if (ViewBag.ListaArea != null)
+                                {
+                                    <div class="form-group  row">
+                                        <div class="col-sm-4">
+                                            @Html.DropDownList("IdArea", ViewBag.ListaArea as SelectList, new { @class = "btn btn-default text-success" })
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownList("ID_Producto", new SelectList(""), new { @class = "btn btn-default text-success" })
+                                        </div>
+
+                                    </div>
+                                }
+
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">Precio</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="Precio" class="form-control" disabled="disabled" />
+                                    </div>
+                                    <label class="col-sm-2 col-form-label">Cantidad</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="Cantidad" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group  row">
+                                    <div class="col-sm-8">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="text-danger" id="spanCantCero"> </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">Total</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="Total" class="form-control" disabled="disabled" />
+                                    </div>
+                                    <label class="col-sm-2"></label>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-block btn-ydR-success" type="button" id="buttonAddProd"> &nbsp; AGREGAR &nbsp; <i class="fa fa-share"></i> &nbsp; </button>
+                                    </div>
+                                </div>
+                                <div class="form-group  row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="text-danger" id="spanDobleProd"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+            <div id="resultado"></div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+
+    $("#buttonAddProd").click(function () {
+
+        if (!/^[0-9]*$/.test(parseInt($("#IdCotiza").val()))) {
+            return;
+        }
+        if (!/^[0-9]*$/.test(@DniEmpl)) {
+            return;
+        }
+
+        if (!/^[0-9.]*$/.test($("#Cantidad").val())) {
+            $("#spanCantCero").html("Cantidad No Valida");
+            return;
+        }
+
+        var vcant = parseInt($("#Cantidad").val());
+
+        if (vcant == 0) {
+            $("#spanCantCero").html("Ingrese Cantidad");
+            return;
+        }
+
+        var dataString = new FormData();
+        dataString.append("ID_Producto", $("#ID_Producto").val());
+        dataString.append("Precio", $("#Precio").val());
+        dataString.append("Cantidad", $("#Cantidad").val());
+        dataString.append("Total", $("#Total").val());
+        dataString.append("ID_Empleado", @DniEmpl);
+        dataString.append("ID_Cuerpo", $("#IdCotiza").val());
+        //dataString.append("Nombre", $("#ID_Producto").text());
+        $.ajax({
+            url: "@Url.Action("MostrarDetalle", "Cotizacion")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            //async: false,
+            success: function (response) {
+                //listaDetProd.push(idprod);
+                $("#Cantidad").val(0);
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+    });
+
+        // fin Cargar Lista Detalle
+
+    $("#buttonCab").click(function () {
+        var vsede = parseInt($("#ID_Sede").val());
+        var vid = parseInt($("#ID").val());
+        if (isNaN(vsede)) vsede = 1;
+        if (isNaN(vid)) vsede = 1;
+
+        var dataString = new FormData();
+        dataString.append("ID", vid);
+        dataString.append("ID_Sede", vsede);
+        dataString.append("Ruc", $("#RUC").val());
+        dataString.append("RazSocial", $("#RazSocial").val());
+        dataString.append("Direccion", $("#Direccion").val());
+        dataString.append("ID_Empleado", @DniEmpl);
+        $.ajax({
+            url: "@Url.Action("AddCabCotizacion", "Cotizacion")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            //async: false,
+            success: function (dato) {
+                if (dato.ID > 0) {
+                    $("#RUC").prop("disabled", true);
+                    $("#RazSocial").prop("disabled", true);
+                    $("#Direccion").prop("disabled", true);
+                    $("#spanResultado").html("");
+                    $("#spanRucValido").html(dato.Mensaje);
+                    document.getElementById("buttonCab").hidden = true;
+                    $("#IdCotiza").val(dato.ID);
+                    document.getElementById("panelAddProd").hidden = false;
+                }
+            }
+        });
+    });
+
+        //Fin buttoncab
+
+    $("#RUC").keyup(function () {
+        document.getElementById("buttonCab").hidden = true;
+        var ruc = $("#RUC").val();
+        if (/^[0-9]*$/.test(ruc)) {
+            if (ruc.length == 11) {
+                $("#spanRucValido").html("RUC Valido!!!");
+                $("#spanResultado").html("");
+                //document.getElementById("buttonRuc").hidden = false;
+                document.getElementById("buttonCab").hidden = false;
+                BuscarRuc();
+            } else {
+
+                $("#spanResultado").html("Ruc No Valido!!!");
+                $("#spanRucValido").html("");
+                //document.getElementById("buttonRuc").hidden = true;
+                document.getElementById("buttonCab").hidden = true;
+            }
+        } else {
+            $("#spanResultado").html("No se Admiten Letras");
+            $("#spanRucValido").html("");
+        }
+    });
+
+    var datalista = [];
+
+        $("#IdArea").change(function () {
+            loadArea($("#IdArea").val());
+        });
+
+        //fin ListaArea
+        //"/rpecito/Cotizacion/JsonProdLista"
+        function loadArea(vid) {
+            $.get("/Cotizacion/JsonProdLista", { ID_Area: vid }, function (data) {
+                $("#ID_Producto").empty();
+                datalista = data;
+
+                $("#Precio").val(data[0].Precio);
+                CalculaTotal();
+
+                $.each(data, function (index, row) {
+                    $("#ID_Producto").append("<option value='" + row.ID + "'>" + row.Nombre + "</option>")
+                });
+            });
+        }
+
+
+        $("#ID_Producto").change(function () {
+            var idprod = parseInt($("#ID_Producto").val());
+            loadProd(idprod);
+        });
+
+        function loadProd(idprod) {
+            $("#spanDobleProd").html("");            
+            if (isNaN(idprod)) {
+                $("#Precio").val(-1);
+            } else {
+                if (datalista != null) {
+                    for (var i = 0; i < datalista.length; i++) {
+                        if (datalista[i].ID == idprod) {
+                            $("#Precio").val(datalista[i].Precio);
+                            CalculaTotal();
+                            return;
+                        }
+                    }
+                } else {
+                    alert("Intente en Otro Momento!!!");
+                }
+            }
+        }
+
+
+        //fin lista producto
+
+    $("#Cantidad").keyup(function () {
+        CalculaTotal();
+    });
+
+        //fin calcula cantidad
+
+    function BuscarRuc() {
+        var url = "@Url.Action("JsonCliente", "Empresa")";
+        var ruc = $("#RUC").val();
+        var data = { ruc: ruc };
+
+        $.post(url, data).done(function (data) {
+            if (!data.Error) {
+                $("#spanResultado").html("");
+                $("#RUC").val(data.RUC);
+                $("#RazSocial").val(data.RazSocial);
+                $("#Direccion").val(data.Direccion);
+                $("#ID").val(data.ID);
+                $("#spanRucValido").html("Cliente Registrado");
+                $("#spanResultado").html("");
+
+
+            } else {
+                $("#spanResultado").html("Cliente No Registrado");
+                $("#spanRucValido").html("");
+                $("#RazSocial").val("");
+                $("#Direccion").val("");
+            }
+        });
+    };
+
+    function CalculaTotal() {
+        var cantidad = $("#Cantidad").val();
+        if (/^[0-9.]*$/.test(cantidad)) {
+            $("#spanCantCero").html("");
+            var precio = $("#Precio").val();
+            var total = cantidad * precio;
+            total = total.toFixed(2);
+            $("#Total").val(total);
+        } else {
+            $("#spanCantCero").html("Cantidad No Valida");
+        }
+    };
+
+    </script>
+}
+

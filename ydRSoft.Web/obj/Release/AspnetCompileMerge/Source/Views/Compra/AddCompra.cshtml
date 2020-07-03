@@ -1,0 +1,320 @@
+﻿@model ydRSoft.Model.CompraModel
+
+@{
+    ViewBag.Title = "Compra";
+    var vmLista = ViewBag.ListaDetalle;
+    string fmax = Model.Fecha;
+    decimal mTotal = 0;
+    //Layout = "~/Views/Shared/_LayoutLogistica.cshtml";
+}
+
+<style>
+    .ydRImg img {
+        width: auto;
+        max-height: 300px;
+    }
+</style>
+
+
+<div class="ibox-title ydR-titulo-success text-success">
+    <h2> <strong> Comprobante  </strong>  </h2> Compra &nbsp; &nbsp; &nbsp;<span class="text-success"> @DateTime.Now.ToString("D")</span>
+</div>
+
+<div class="row ydR-label-succes ydR-input text-success">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        @Html.HiddenFor(x => x.ID)
+
+                                        @if (ViewBag.Sede != null && ViewBag.Doc != null)
+                                        {
+                                            <div class="form-group  row">
+                                                <div class="col-sm-4">
+                                                    Sede:
+                                                    @Html.DropDownList("Sede", ViewBag.Sede as SelectList, new { @class = "btn btn-default text-success" })
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    Guia Remision :
+                                                    @Html.TextBoxFor(x => x.Codigo, new { @class = "form-control text-success", disabled = "disabled" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group  row">
+                                                <div class="col-sm-6">
+                                                    <input type="date" id="Fecha" class="form-control" max="@fmax" value="@fmax" min="2000-01-01" />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    @Html.DropDownList("IdDoc", ViewBag.Doc as SelectList, new { @class = "btn btn-default text-success col-sm-12" })
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="form-group  row">
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(x => x.RUC, new { @class = "form-control text-success", disabled = "disabled" })
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(x => x.RazSocial, new { @class = "form-control text-success", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group  row">
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(x => x.Serie, new { @class = "form-control text-success", placeholder = "Serie" })
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @Html.TextBoxFor(x => x.Numero, new { @class = "form-control text-success", placeholder = "Numero" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group  row" id="IdCuerpo" hidden="hidden">
+                                            <div class="col-sm-4">
+                                                Inafecta :
+                                                @Html.TextBoxFor(x => x.Inafecta, new { @class = "form-control text-success" })
+                                            </div>
+                                            <div class="col-sm-4">
+                                                IGV :
+                                                <input type="number" id="Valigv" class="form-control" disabled="disabled"/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                BASE :
+                                                <input type="number" id="Valbase" class="form-control" disabled ="disabled"/>
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+                                    <div class="col-md-6 ydRImg">
+                                        <div class="form-group  row">
+                                            <div class="col-sm-12">
+                                                <input type="file" id="fileUpload" accept="image/png, image/jpeg" />
+                                            </div>
+                                        </div>
+                                        <div id="imagePreview">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-success" type="button" id="btnSave"> &nbsp; GUARDAR  &nbsp; <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="panel panel-success text-success">
+                            <div class="ibox-title">
+                                <h4> <small> Lista</small> &nbsp; Detalle Compra </h4>
+                            </div>
+                            <div class="ibox-content">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="visibility:hidden">ID</th>
+                                            <th>#</th>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.ListaDetalle != null)
+                                        {
+                                            foreach (var item in vmLista)
+                                            {
+                                                <tr>
+                                                    <td width="1%" style="visibility:hidden">@item.ID</td>
+                                                    <td width="5%" align="center">@item.Codigo</td>
+                                                    <td width="35%" align="left">@item.Nombre</td>
+                                                    <td width="15%" align="left">@item.Cantidad</td>
+                                                    <td width="15%" align="left">@item.Precio</td>
+                                                    <td width="15%" align="right">@item.Total</td>
+                                                </tr>
+                                                mTotal = mTotal + item.Total;
+                                            }
+
+                                        }
+                                    </tbody>
+                                    <tfoot align="right">
+                                        <tr>
+                                            <th style="visibility:hidden"></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Total : </th>
+                                            <th><strong class="text-success">@mTotal</strong></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+                    <input id="ValTotal"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+
+        function CalculaIGV(to) {
+            var igv = 18 * to / 118;
+            igv = igv.toFixed(2);
+            var base = to - igv; 
+
+            base = base.toFixed(2);
+
+            $("#Valigv").val(igv);
+            $("#Valbase").val(base);
+            $("#ValTotal").val(to);
+
+            document.getElementById("IdCuerpo").hidden = false;
+        };
+
+        function filePreview(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#imagePreview").html("<img src= '" + e.target.result + "' />");
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        $("#fileUpload").change(function () {
+            filePreview(this);
+            CalculaIGV(@mTotal);
+        });
+
+        $("#Inafecta").keyup(function () {
+            var ina = $("#Inafecta").val();
+            if (ina >@mTotal) {
+                alert("Inafecta no puede ser mayor al Total");
+                $("#Inafecta").val(@mTotal);
+                $("#Valigv").val(0);
+                $("#Valbase").val(0);
+                return;
+            }
+
+            if (ina <0) {
+                alert("Inafecta no puede ser Negativo");
+                $("#Inafecta").val(0);
+                CalculaIGV(@mTotal);
+                return;
+            }
+
+
+            var to = @mTotal-ina;
+
+            CalculaIGV(to);
+        });
+
+
+    </script>
+
+    <script>
+        $("#btnSave").click(function () {
+            var selectFile = ($("#fileUpload"))[0].files[0];
+
+            if (selectFile == null) {
+                alert("Seleccione una Imagen!!!");
+                return;
+            }
+
+            if ($("#Serie").val().length==0) {
+                alert("Ingrese Serie");
+                return;
+            }
+
+            if (isNaN(parseInt($("#Numero").val()))) {
+                alert("Ingrese Numero");
+                return;
+            }
+
+            if (isNaN(Date.parse($("#Fecha").val()))) {
+                alert("Fecha No Valida");
+                return;
+            }
+
+            AddCompra();
+        });
+        
+
+        function AddCompra() {
+            var selectFile = ($("#fileUpload"))[0].files[0];
+            var dataString = new FormData();
+            dataString.append("ID", $("#ID").val());
+            dataString.append("Sede", $("#Sede").val());
+            dataString.append("RUC", $("#RUC").val());
+            dataString.append("Serie", $("#Serie").val());
+            dataString.append("Numero", $("#Numero").val());
+            dataString.append("Fecha", $("#Fecha").val());
+            dataString.append("IdDoc", $("#IdDoc").val());
+            dataString.append("Inafecta", $("#Inafecta").val());
+            dataString.append("Total", @mTotal);
+            dataString.append("fileUpload", selectFile);
+
+            $.ajax({
+                url: "@Url.Action("AddCompra", "Compra")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                //async: false,
+                success: function (data) {
+                    if (data.ID > 0) {
+                        Limpiar();
+                    }
+                    alert(data.Mensaje);
+                }
+            });
+        };
+
+        function Limpiar() {
+           window.location.href='@Url.Action("GuiaApro", "Compra")';
+        }
+
+    </script>
+}
+
+
+
+

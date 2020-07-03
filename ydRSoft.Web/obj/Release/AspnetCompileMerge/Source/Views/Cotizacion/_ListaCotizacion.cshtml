@@ -1,0 +1,189 @@
+﻿
+
+@{
+    var vmLista = ViewBag.ListaCotiza;
+    ydRSoft.Model.EmpleadoModel objEmpleado = (ydRSoft.Model.EmpleadoModel)Session["objEmpleado"];
+    string DniEmpl = string.Empty;
+    int Idcargo = 0;
+    string vFecha = string.Empty;
+    List<string> listEstado = new List<string>() { "NUEVO", "ENVIADO", "RECHAZADO", "APROBADO", "ELIMINADO" };
+
+    if (objEmpleado != null)
+    {
+        DniEmpl = objEmpleado.DNI;
+
+        Idcargo = objEmpleado.ID_Cargo;
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Cotizaciones </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>RUC</th>
+                                <th>RazSocial</th>
+                                <th>Total</th>
+                                <th>Empleado</th>
+                                <th>Estado</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (vmLista != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="10%" align="center">@item.Fecha</td>
+                                        <td width="15%" align="left">@item.RUC</td>
+                                        <td width="40%" align="left">@item.RazSocial</td>
+                                        <td width="10%" align="right">@item.Total</td>
+                                        <td width="10%" align="right">@item.ID_Empleado</td>
+                                        <td width="10%" align="right">@listEstado[item.Estado]</td>
+                                        <td width="10%" align="center">
+                                            @if (item.Estado == ydRSoft.ydR.Variable.NUEVO)
+                                            {
+                                                <div class="btn-group">
+                                                    <button class="btn-info btn btn-xs"> &nbsp;<i class="fa fa-send"></i> &nbsp; </button>
+                                                    &nbsp;
+                                                    <button class="btn-success btn btn-xs"> &nbsp;<i class="fa fa-edit"></i>  &nbsp; </button>
+                                                    &nbsp;
+                                                    <button class="btn-danger btn btn-xs"> &nbsp;<i class="fa fa-trash"></i>  &nbsp; </button>
+
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                if (item.Estado == ydRSoft.ydR.Variable.ENVIADO)
+                                                {
+
+                                                    if (Idcargo != ydRSoft.ydR.Cargos.VENTAS)
+                                                    {
+                                                        <div class="btn-group">
+                                                            <button class="btn-primary btn btn-xs"> &nbsp;<i class="fa fa-check"></i> Aceptar  &nbsp; </button>
+                                                            &nbsp;
+                                                            <button class="btn-ydR-danger btn btn-xs"> &nbsp;<i class="fa fa-reply"></i> Rechazar &nbsp; </button>
+                                                        </div>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="btn-group">
+                                                            <button class="btn-warning btn btn-xs"> &nbsp;<i class="fa fa-reply-all"></i>  &nbsp; Cancelar </button>
+                                                        </div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="btn-group">
+                                                        <button class="btn-success btn btn-xs"> &nbsp;<i class="fa fa-edit"></i>  &nbsp;</button>
+                                                        &nbsp;&nbsp;
+                                                        <button class="btn-danger btn btn-xs"> &nbsp;<i class="fa fa-trash"></i>  &nbsp; </button>
+                                                    </div>
+                                                }
+                                            }
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+        var IdCotiza = 0;
+        var IdEstado = 0;
+        //cancelar
+        $(".btn-warning").click(function () {
+            IdCotiza = $(this).parents("tr").find("td").eq(0).html();
+            btnOptions();
+        });
+
+        //enviar
+        $(".btn-info").click(function () {
+            IdCotiza = $(this).parents("tr").find("td").eq(0).html();
+            IdEstado = 1;
+            btnOptions();
+        });
+
+        //rechazar
+        $(".btn-ydR-danger").click(function () {
+            IdCotiza = $(this).parents("tr").find("td").eq(0).html();
+            IdEstado = 2;
+            btnOptions();
+        });
+
+        //aprobar
+        $(".btn-primary").click(function () {
+            IdCotiza = $(this).parents("tr").find("td").eq(0).html();
+            IdEstado = 3;
+            btnOptions();
+        });
+
+        //eliminar
+        $(".btn-danger").click(function () {
+            IdCotiza = $(this).parents("tr").find("td").eq(0).html();
+            IdEstado = 4;
+            btnOptions();
+        });
+
+        function btnOptions() {
+
+            var dataString = new FormData();
+            dataString.append("IdCotiza", IdCotiza);
+            dataString.append("IdEstado", IdEstado);
+
+
+            $.ajax({
+                url: "@Url.Action("OptionCotiza", "Cotizacion")",
+                type: "POST",
+                data: dataString,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#Cantidad").val(0);
+                    $("#resultado").hide("slow", function () {
+                        $(this).html(response);
+                        $(this).show("slow");
+                    });
+                }
+            });
+
+        };
+
+</script>

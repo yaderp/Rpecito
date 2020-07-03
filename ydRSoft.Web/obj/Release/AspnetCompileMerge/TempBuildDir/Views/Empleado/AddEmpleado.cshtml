@@ -1,0 +1,109 @@
+﻿
+@model ydRSoft.ViewModel.EmpleadoViewModel
+
+@{
+    ViewBag.Title = "Empleado";
+    Layout = "~/Views/Shared/_LayoutEmpleado.cshtml";
+
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-danger">
+                <strong>Error!! </strong> @TempData["Error"].ToString()
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    if (TempData["Mensaje"] != null)
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-success">
+                    <strong>Felicidades!! </strong> @TempData["Mensaje"].ToString()
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<div class="col-lg-10">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2><small> Nuevo</small>  Empleado </h2>
+        </div>
+        <form role="form" method="post" action="@Url.Action("AddEmpleado","Empleado")">
+            <div class="panel-body">
+                @if (ViewBag.ListaCargo != null)
+                {
+                    <div class="form-group  row">
+                        <label class="col-sm-2 col-form-label text-success"><strong>Cargo</strong> </label>
+                        <div class="col-sm-4">
+                            @Html.DropDownListFor(X => X.ID_Cargo, ViewBag.ListaCargo as SelectList, new { @class = "btn btn-default" })
+                        </div>
+
+                    </div>
+                }
+                <div class="form-group  row">
+                    <label class="col-sm-2 col-form-label text-success"> <strong>DNI</strong> </label>
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(x => x.DNI, new { @class = "form-control", placeholder = "Numero de DNI" })                       
+                    </div>
+                </div>
+
+                <div class="form-group  row">
+                    <label class="col-sm-2 col-form-label text-success"><strong>Nombres</strong> </label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.Nombres, new { @class = "form-control", placeholder = "Nombres" })
+                    </div>
+                </div>
+                <div class="form-group  row">
+                    <label class="col-sm-2 col-form-label text-success"><strong>Apellidos</strong> </label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.Apellidos, new { @class = "form-control", placeholder = "Apellidos" })
+                    </div>
+                </div>
+                <div class="form-group  row">
+                    <label class="col-sm-2 col-form-label text-success"><strong>Correo</strong> </label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.Correo, new { @class = "form-control ", placeholder = "correo@ejemplo.com" })
+                    </div>
+                </div>
+                @if (ViewBag.ListaSexo != null)
+                {
+                    <div class="form-group  row">
+                        <label class="col-sm-2 col-form-label text-success"><strong>Sexo</strong> </label>
+                        <div class="col-sm-4">
+                            @Html.DropDownListFor(X => X.ID_Sexo, ViewBag.ListaSexo as SelectList, new { @class = "btn btn-default" })
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+            <div class="panel-footer">
+                <div class="col-sm-4">
+                    <button type="submit" id="addEmpl" class="btn btn-success block full-width m-b"> Registrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section scripts
+    {
+    <script>
+        function validarSiNumero(object) {
+            numero = object.value; if (!/^([0-9])*$/.test(numero))
+                object.value = numero.substring(0, numero.length - 1);
+            alert("WAAAAA")
+        }
+    </script>
+
+}
+

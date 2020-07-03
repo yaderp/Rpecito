@@ -1,0 +1,190 @@
+﻿
+@{ 
+    var vmLista = ViewBag.vmLista;
+    var vmNombre = ViewBag.IdGuia;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-info text-success">
+                <div class="ibox-title">
+                    @if (ViewBag.IdGuia != null)
+                    {
+                    <h4> <small> Detalle </small> &nbsp; @ViewBag.IdGuia</h4>
+                    }
+                    else
+                    {
+                        <h4> <small> Lista</small> &nbsp; Detalle Guia </h4>
+                    }
+
+                </div>
+                <div class="ibox-content">
+                    @if (ViewBag.IdGuia != null)
+                    {
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="visibility:hidden">ID</th>
+                                    <th>#</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Observacion</th>
+                                    <th>Opcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.vmLista != null)
+                                {
+                                    foreach (var item in vmLista)
+                                    {
+                                        <tr>
+                                            <td width="1%" style="visibility:hidden">@item.ID</td>
+                                            <td width="5%" align="center">@item.Codigo</td>
+                                            <td width="25%" align="left">@item.Nombre</td>
+                                            <td width="25%" align="left">@item.Cantidad</td>
+                                            <td width="30%" align="left">@item.Observ</td>
+                                            <td width="15%" align="center">
+                                                <div class="btn-group">
+                                                    <button class="btn-info btn btn-xs" data-toggle="modal" data-target="#modalObserv" id="btnModal"> &nbsp;<i class="fa fa-folder"></i> &nbsp; Observ</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                            <tfoot align="right">
+                                <tr>
+                                    <th style="visibility:hidden"></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th align="center">
+                                        
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="btn-group col-sm-12">
+                            <div class="col-md-10">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn-ydR-danger col-md-12 btn btn-xs" id="CloseGuia"> &nbsp;<i class="fa fa-send"></i> &nbsp; Cerrar</button>
+                            </div>
+                        </div>
+                        
+                    }
+                    else
+                    {
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.vmLista != null)
+                                {
+                                    foreach (var item in vmLista)
+                                    {
+                                        <tr>
+                                            <td width="10%" align="center">@item.Codigo</td>
+                                            <td width="55%" align="left">@item.Nombre</td>
+                                            <td width="25%" align="left">@item.Cantidad</td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                            <tfoot align="right">
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="modalObserv" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content">
+            <div class="modal-header" id="titulo">
+                <h2><strong> <span class="text-success" id="TituloObserv"> </span> </strong>  </h2> &nbsp; Observ
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="IdDet" hidden="hidden" />
+                <div class="form-group  row">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        Cantidad Real :
+                        <input type="number" id="CantReal" class="form-control" placeholder="Cantidad" />
+                    </div>
+                </div>
+                <div class="form-group  row">
+                    <div class="col-sm-12">
+                        Observacion :
+                        <input type="text" id="Observ" class="form-control" placeholder="Observacion" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+                <button type="button" id="ModalSave" class="btn btn-ydR-primary" data-dismiss="modal"> &nbsp; ENVIAR &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+        $(".btn-info").click(function () {
+            vid = $(this).parents("tr").find("td").eq(0).html();
+            nom = $(this).parents("tr").find("td").eq(2).html();
+
+            $("#IdDet").val(vid);
+            $("#TituloObserv").html(nom);
+        });
+
+    $("#ModalSave").click(function () {
+        var dataString = new FormData();
+        
+        dataString.append("ID", $("#IdDet").val());
+        dataString.append("Codigo", $("#IdCodigo").val());
+        dataString.append("Cantidad", $("#CantReal").val());
+        dataString.append("Observ", $("#Observ").val());
+        $.ajax({
+            url: "@Url.Action("EditGuiaDetalle", "Compra")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+    });
+
+    $("#CloseGuia").click(function () {
+        document.getElementById("resultado").hidden = true;
+    });
+
+    
+
+</script>

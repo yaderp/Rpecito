@@ -1,0 +1,994 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ydRSoftWebModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Alma_Tipo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="75" />
+  </EntityType>
+  <EntityType Name="Almacen">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Tipo" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Stock" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Cantidad_Orden" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Unidad" Type="varchar" MaxLength="30" />
+    <Property Name="Detalle" Type="varchar" MaxLength="200" />
+    <Property Name="Img" Type="varbinary(max)" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="75" />
+  </EntityType>
+  <EntityType Name="Cargo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="RUC" />
+    </Key>
+    <Property Name="RUC" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="RazSocial" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" />
+    <Property Name="Telefono" Type="varchar" MaxLength="20" />
+    <Property Name="Celular" Type="varchar" MaxLength="20" />
+    <Property Name="Correo" Type="varchar" MaxLength="100" />
+    <Property Name="Pago" Type="varchar" MaxLength="40" />
+    <Property Name="Credito" Type="int" Nullable="false" />
+    <Property Name="Sede" Type="int" Nullable="false" />
+    <Property Name="ID_Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cliente_Credito">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Cliente_Estado">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Cliente_Pago">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Cliente_Sede">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Cliente" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Compra">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Sede" Type="int" Nullable="false" />
+    <Property Name="ID_Guia" Type="int" Nullable="false" />
+    <Property Name="ID_Doc" Type="int" Nullable="false" />
+    <Property Name="Serie" Type="varchar" MaxLength="6" />
+    <Property Name="Numero" Type="varchar" MaxLength="10" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="Inafecta" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Img" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="date" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Compra_Cuerpo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Moneda" Type="int" Nullable="false" />
+    <Property Name="TipoCambio" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="Inafecta" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Igv" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Compra_Detalle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Cuerpo" Type="int" Nullable="false" />
+    <Property Name="ID_Alma" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Cant_Real" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Observ" Type="varchar" MaxLength="250" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Compra_Guia">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Sede" Type="int" Nullable="false" />
+    <Property Name="ID_Prov" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Serie" Type="varchar" MaxLength="6" />
+    <Property Name="Numero" Type="varchar" MaxLength="10" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="ID_AProbado" Type="varchar" MaxLength="8" />
+    <Property Name="Img" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="date" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Compra_Orden">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Sede" Type="int" Nullable="false" />
+    <Property Name="ID_Prov" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="date" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Compra_Solicitud">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Sede" Type="int" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="ID_Aprobado" Type="varchar" MaxLength="8" />
+    <Property Name="ID_Alma" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Observacion" Type="varchar" MaxLength="250" />
+    <Property Name="Fecha_Reg" Type="date" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Conexion">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="RUC" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Correo" Type="varchar" MaxLength="30" />
+    <Property Name="Direccion" Type="varchar" MaxLength="75" />
+    <Property Name="Facebook" Type="varchar" MaxLength="40" />
+    <Property Name="Pagweb" Type="varchar" MaxLength="40" />
+    <Property Name="OtroUrl" Type="varchar" MaxLength="40" />
+    <Property Name="Img" Type="varbinary(max)" />
+    <Property Name="Fecha_Reg" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cotiza_Detalle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Producto" Type="int" Nullable="false" />
+    <Property Name="ID_Cotiza" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+    <Property Name="Detalle" Type="varchar" MaxLength="200" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cotizacion">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Sede" Type="int" Nullable="false" />
+    <Property Name="RUC" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="RazSocial" Type="varchar" MaxLength="100" />
+    <Property Name="Total" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" />
+    <Property Name="ID_Aprobado" Type="varchar" MaxLength="8" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documento">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="75" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="DNI" />
+    </Key>
+    <Property Name="DNI" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="ID_Cargo" Type="int" Nullable="false" />
+    <Property Name="Nombres" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Apellidos" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Correo" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Clave" Type="varbinary(max)" />
+    <Property Name="Direccion" Type="varchar" MaxLength="100" />
+    <Property Name="Fecha_Nac" Type="date" />
+    <Property Name="Sexo" Type="tinyint" Nullable="false" />
+    <Property Name="Img" Type="varbinary(max)" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="date" Nullable="false" />
+    <Property Name="Fecha_Fin" Type="date" />
+  </EntityType>
+  <EntityType Name="Gasto">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Tipo" Type="int" Nullable="false" />
+    <Property Name="ID_doc" Type="int" Nullable="false" />
+    <Property Name="ID_Prov" Type="varchar" MaxLength="11" />
+    <Property Name="Serie" Type="varchar" MaxLength="6" />
+    <Property Name="Numero" Type="varchar" MaxLength="10" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="Inafecta" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Img" Type="varbinary(max)" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Fecha_reg" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Gasto_Tipo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Moneda">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="10" />
+    <Property Name="Cambio" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+    <Property Name="Detalle" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Area" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Stock" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Cantidad_Min" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Unidad" Type="varchar" MaxLength="30" />
+    <Property Name="Precio" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+    <Property Name="Detalle" Type="varchar" MaxLength="200" />
+    <Property Name="Img" Type="varbinary(max)" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="RUC" />
+    </Key>
+    <Property Name="RUC" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="RazSocial" Type="varchar" MaxLength="100" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Receta">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Producto" Type="int" Nullable="false" />
+    <Property Name="ID_Almacen" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sede">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="75" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" />
+    <Property Name="Telefono" Type="varchar" MaxLength="20" />
+    <Property Name="Celular" Type="varchar" MaxLength="20" />
+    <Property Name="Correo" Type="varchar" MaxLength="75" />
+    <Property Name="Empleado" Type="varchar" MaxLength="8" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Serie_Numero">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Serie" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="Numero" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" />
+    <Property Name="ID_Doc" Type="int" Nullable="false" />
+    <Property Name="Serie" Type="varchar" MaxLength="6" />
+    <Property Name="Numero" Type="varchar" MaxLength="10" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" />
+    <Property Name="Img" Type="varbinary(max)" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venta_Cuerpo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Moneda" Type="int" Nullable="false" />
+    <Property Name="Cambio" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+    <Property Name="Inafecta" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Descuento" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Base" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="IGV" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venta_Detalle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" />
+    <Property Name="ID_Cuerpo" Type="int" Nullable="false" />
+    <Property Name="ID_Producto" Type="int" Nullable="false" />
+    <Property Name="Detalle" Type="varchar" MaxLength="200" />
+    <Property Name="Cantidad" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+    <Property Name="Descuento" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Base" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Igv" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venta_Guia">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" />
+    <Property Name="Serie" Type="varchar" MaxLength="6" />
+    <Property Name="Numero" Type="varchar" MaxLength="10" />
+    <Property Name="Licencia" Type="varchar" MaxLength="10" />
+    <Property Name="Placa" Type="varchar" MaxLength="10" />
+    <Property Name="Modelo" Type="varchar" MaxLength="20" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" />
+    <Property Name="Img" Type="varbinary(max)" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venta_Orden">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID_Sede" Type="int" Nullable="false" />
+    <Property Name="ID_Cotiza" Type="int" Nullable="false" />
+    <Property Name="ID_Cliente" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="ID_Empleado" Type="varchar" MaxLength="8" />
+    <Property Name="Serie" Type="varchar" MaxLength="6" />
+    <Property Name="Numero" Type="varchar" MaxLength="10" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Fecha_Reg" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Almacen_Tipo">
+    <End Role="Alma_Tipo" Type="Self.Alma_Tipo" Multiplicity="1" />
+    <End Role="Almacen" Type="Self.Almacen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alma_Tipo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Almacen">
+        <PropertyRef Name="ID_Tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Cuerpo_Moneda">
+    <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+    <End Role="Compra_Cuerpo" Type="Self.Compra_Cuerpo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Moneda">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra_Cuerpo">
+        <PropertyRef Name="ID_Moneda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Detalle_Alma">
+    <End Role="Almacen" Type="Self.Almacen" Multiplicity="1" />
+    <End Role="Compra_Detalle" Type="Self.Compra_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Almacen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra_Detalle">
+        <PropertyRef Name="ID_Alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Detalle_Cuerpo">
+    <End Role="Compra_Cuerpo" Type="Self.Compra_Cuerpo" Multiplicity="1" />
+    <End Role="Compra_Detalle" Type="Self.Compra_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compra_Cuerpo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra_Detalle">
+        <PropertyRef Name="ID_Cuerpo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Guia_Prov">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+    <End Role="Compra_Guia" Type="Self.Compra_Guia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Compra_Guia">
+        <PropertyRef Name="ID_Prov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Orden_Prove">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+    <End Role="Compra_Orden" Type="Self.Compra_Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Compra_Orden">
+        <PropertyRef Name="ID_Prov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_C_Sol_Alma">
+    <End Role="Almacen" Type="Self.Almacen" Multiplicity="1" />
+    <End Role="Compra_Solicitud" Type="Self.Compra_Solicitud" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Almacen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra_Solicitud">
+        <PropertyRef Name="ID_Alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_Estado">
+    <End Role="Cliente_Estado" Type="Self.Cliente_Estado" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente_Estado">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="ID_Estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Compra_Doc">
+    <End Role="Documento" Type="Self.Documento" Multiplicity="1" />
+    <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra">
+        <PropertyRef Name="ID_Doc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Compra_Guia">
+    <End Role="Compra_Guia" Type="Self.Compra_Guia" Multiplicity="1" />
+    <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compra_Guia">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Compra">
+        <PropertyRef Name="ID_Guia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CotDetalle_Cotiza">
+    <End Role="Cotizacion" Type="Self.Cotizacion" Multiplicity="1" />
+    <End Role="Cotiza_Detalle" Type="Self.Cotiza_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cotizacion">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cotiza_Detalle">
+        <PropertyRef Name="ID_Cotiza" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CotDetalle_Prod">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="Cotiza_Detalle" Type="Self.Cotiza_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cotiza_Detalle">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Empleado_Cargo">
+    <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cargo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="ID_Cargo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gasto_Doc">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+    <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Gasto">
+        <PropertyRef Name="ID_Prov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gasto_Prov">
+    <End Role="Documento" Type="Self.Documento" Multiplicity="1" />
+    <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Gasto">
+        <PropertyRef Name="ID_Tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gasto_Tipo">
+    <End Role="Gasto_Tipo" Type="Self.Gasto_Tipo" Multiplicity="1" />
+    <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gasto_Tipo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Gasto">
+        <PropertyRef Name="ID_doc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="ID_Area" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receta_Almacen">
+    <End Role="Almacen" Type="Self.Almacen" Multiplicity="1" />
+    <End Role="Receta" Type="Self.Receta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Almacen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Receta">
+        <PropertyRef Name="ID_Almacen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receta_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="Receta" Type="Self.Receta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Receta">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sede_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Cliente_Sede" Type="Self.Cliente_Sede" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Cliente_Sede">
+        <PropertyRef Name="ID_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Cuerpo_Moneda">
+    <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+    <End Role="Venta_Cuerpo" Type="Self.Venta_Cuerpo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Moneda">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Cuerpo">
+        <PropertyRef Name="ID_Moneda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Detalle_Cuerpo">
+    <End Role="Venta_Cuerpo" Type="Self.Venta_Cuerpo" Multiplicity="1" />
+    <End Role="Venta_Detalle" Type="Self.Venta_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta_Cuerpo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Detalle">
+        <PropertyRef Name="ID_Cuerpo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Detalle_Prod">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="Venta_Detalle" Type="Self.Venta_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Detalle">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Orden_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Venta_Orden" Type="Self.Venta_Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="RUC" />
+      </Principal>
+      <Dependent Role="Venta_Orden">
+        <PropertyRef Name="ID_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Orden_Cotiza">
+    <End Role="Cotizacion" Type="Self.Cotizacion" Multiplicity="1" />
+    <End Role="Venta_Orden" Type="Self.Venta_Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cotizacion">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Orden">
+        <PropertyRef Name="ID_Cotiza" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_V_Orden_Sede">
+    <End Role="Sede" Type="Self.Sede" Multiplicity="1" />
+    <End Role="Venta_Orden" Type="Self.Venta_Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sede">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta_Orden">
+        <PropertyRef Name="ID_Sede" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venta_Doc">
+    <End Role="Documento" Type="Self.Documento" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="ID_Doc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_Insert_Almacen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idtipo" Type="int" Mode="In" />
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+    <Parameter Name="detalle" Type="varchar" Mode="In" />
+    <Parameter Name="imagen" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_Cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ruc" Type="varchar" Mode="In" />
+    <Parameter Name="razsoc" Type="varchar" Mode="In" />
+    <Parameter Name="direc" Type="varchar" Mode="In" />
+    <Parameter Name="pago" Type="varchar" Mode="In" />
+    <Parameter Name="credito" Type="int" Mode="In" />
+    <Parameter Name="estado" Type="int" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_Compra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idguia" Type="int" Mode="In" />
+    <Parameter Name="idsede" Type="int" Mode="In" />
+    <Parameter Name="iddoc" Type="int" Mode="In" />
+    <Parameter Name="serie" Type="varchar" Mode="In" />
+    <Parameter Name="numero" Type="varchar" Mode="In" />
+    <Parameter Name="fecha" Type="date" Mode="In" />
+    <Parameter Name="idempl" Type="varchar" Mode="In" />
+    <Parameter Name="inafecta" Type="decimal" Mode="In" />
+    <Parameter Name="total" Type="decimal" Mode="In" />
+    <Parameter Name="img" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_CompraDetalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idcuerpo" Type="int" Mode="In" />
+    <Parameter Name="idalma" Type="int" Mode="In" />
+    <Parameter Name="cantidad" Type="decimal" Mode="In" />
+    <Parameter Name="precio" Type="decimal" Mode="In" />
+    <Parameter Name="total" Type="decimal" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_CompraGuia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idcom" Type="int" Mode="In" />
+    <Parameter Name="idsede" Type="int" Mode="In" />
+    <Parameter Name="idprov" Type="varchar" Mode="In" />
+    <Parameter Name="serie" Type="varchar" Mode="In" />
+    <Parameter Name="numero" Type="varchar" Mode="In" />
+    <Parameter Name="fecha" Type="date" Mode="In" />
+    <Parameter Name="idempl" Type="varchar" Mode="In" />
+    <Parameter Name="img" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_CompraOrden" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idsede" Type="int" Mode="In" />
+    <Parameter Name="idprov" Type="varchar" Mode="In" />
+    <Parameter Name="idempl" Type="varchar" Mode="In" />
+    <Parameter Name="idmoneda" Type="int" Mode="In" />
+    <Parameter Name="cambio" Type="decimal" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_CompraSol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idsede" Type="int" Mode="In" />
+    <Parameter Name="idempl" Type="varchar" Mode="In" />
+    <Parameter Name="idalma" Type="int" Mode="In" />
+    <Parameter Name="cantidad" Type="decimal" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_Cotizacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idsede" Type="int" Mode="In" />
+    <Parameter Name="ruc" Type="varchar" Mode="In" />
+    <Parameter Name="razsoc" Type="varchar" Mode="In" />
+    <Parameter Name="idempl" Type="varchar" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_CotizaDetalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idprod" Type="int" Mode="In" />
+    <Parameter Name="idcot" Type="int" Mode="In" />
+    <Parameter Name="cantidad" Type="decimal" Mode="In" />
+    <Parameter Name="precio" Type="decimal" Mode="In" />
+    <Parameter Name="detalle" Type="varchar" Mode="In" />
+    <Parameter Name="total" Type="decimal" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_Empleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="dni" Type="varchar" Mode="In" />
+    <Parameter Name="idcargo" Type="int" Mode="In" />
+    <Parameter Name="Nombres" Type="varchar" Mode="In" />
+    <Parameter Name="apellidos" Type="varchar" Mode="In" />
+    <Parameter Name="correo" Type="varchar" Mode="In" />
+    <Parameter Name="clave" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="sexo" Type="int" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_Gasto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idtipo" Type="int" Mode="In" />
+    <Parameter Name="iddoc" Type="int" Mode="In" />
+    <Parameter Name="idprov" Type="varchar" Mode="In" />
+    <Parameter Name="serie" Type="varchar" Mode="In" />
+    <Parameter Name="numero" Type="varchar" Mode="In" />
+    <Parameter Name="fecha" Type="date" Mode="In" />
+    <Parameter Name="inafecta" Type="decimal" Mode="In" />
+    <Parameter Name="total" Type="decimal" Mode="In" />
+    <Parameter Name="img" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_Producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idarea" Type="int" Mode="In" />
+    <Parameter Name="Nombres" Type="varchar" Mode="In" />
+    <Parameter Name="detalle" Type="varchar" Mode="In" />
+    <Parameter Name="img" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_Proveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ruc" Type="varchar" Mode="In" />
+    <Parameter Name="razsocial" Type="varchar" Mode="In" />
+    <Parameter Name="direccion" Type="varchar" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Insert_Receta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idprod" Type="int" Mode="In" />
+    <Parameter Name="idAlma" Type="int" Mode="In" />
+    <Parameter Name="cantidad" Type="decimal" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="sp_Update_CompraSol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idsol" Type="int" Mode="In" />
+    <Parameter Name="idalma" Type="int" Mode="In" />
+    <Parameter Name="cantidad" Type="decimal" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="ydRSoftWebModelStoreContainer">
+    <EntitySet Name="Alma_Tipo" EntityType="Self.Alma_Tipo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Almacen" EntityType="Self.Almacen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente_Credito" EntityType="Self.Cliente_Credito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente_Estado" EntityType="Self.Cliente_Estado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente_Pago" EntityType="Self.Cliente_Pago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente_Sede" EntityType="Self.Cliente_Sede" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compra_Cuerpo" EntityType="Self.Compra_Cuerpo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compra_Detalle" EntityType="Self.Compra_Detalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compra_Guia" EntityType="Self.Compra_Guia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compra_Orden" EntityType="Self.Compra_Orden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compra_Solicitud" EntityType="Self.Compra_Solicitud" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Conexion" EntityType="Self.Conexion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cotiza_Detalle" EntityType="Self.Cotiza_Detalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cotizacion" EntityType="Self.Cotizacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Documento" EntityType="Self.Documento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gasto" EntityType="Self.Gasto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gasto_Tipo" EntityType="Self.Gasto_Tipo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Receta" EntityType="Self.Receta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sede" EntityType="Self.Sede" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Serie_Numero" EntityType="Self.Serie_Numero" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venta_Cuerpo" EntityType="Self.Venta_Cuerpo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venta_Detalle" EntityType="Self.Venta_Detalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venta_Guia" EntityType="Self.Venta_Guia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venta_Orden" EntityType="Self.Venta_Orden" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Almacen_Tipo" Association="Self.FK_Almacen_Tipo">
+      <End Role="Alma_Tipo" EntitySet="Alma_Tipo" />
+      <End Role="Almacen" EntitySet="Almacen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Cuerpo_Moneda" Association="Self.FK_C_Cuerpo_Moneda">
+      <End Role="Moneda" EntitySet="Moneda" />
+      <End Role="Compra_Cuerpo" EntitySet="Compra_Cuerpo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Detalle_Alma" Association="Self.FK_C_Detalle_Alma">
+      <End Role="Almacen" EntitySet="Almacen" />
+      <End Role="Compra_Detalle" EntitySet="Compra_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Detalle_Cuerpo" Association="Self.FK_C_Detalle_Cuerpo">
+      <End Role="Compra_Cuerpo" EntitySet="Compra_Cuerpo" />
+      <End Role="Compra_Detalle" EntitySet="Compra_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Guia_Prov" Association="Self.FK_C_Guia_Prov">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Compra_Guia" EntitySet="Compra_Guia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Orden_Prove" Association="Self.FK_C_Orden_Prove">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Compra_Orden" EntitySet="Compra_Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_C_Sol_Alma" Association="Self.FK_C_Sol_Alma">
+      <End Role="Almacen" EntitySet="Almacen" />
+      <End Role="Compra_Solicitud" EntitySet="Compra_Solicitud" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_Estado" Association="Self.FK_Cliente_Estado">
+      <End Role="Cliente_Estado" EntitySet="Cliente_Estado" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Compra_Doc" Association="Self.FK_Compra_Doc">
+      <End Role="Documento" EntitySet="Documento" />
+      <End Role="Compra" EntitySet="Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Compra_Guia" Association="Self.FK_Compra_Guia">
+      <End Role="Compra_Guia" EntitySet="Compra_Guia" />
+      <End Role="Compra" EntitySet="Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CotDetalle_Cotiza" Association="Self.FK_CotDetalle_Cotiza">
+      <End Role="Cotizacion" EntitySet="Cotizacion" />
+      <End Role="Cotiza_Detalle" EntitySet="Cotiza_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CotDetalle_Prod" Association="Self.FK_CotDetalle_Prod">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Cotiza_Detalle" EntitySet="Cotiza_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Empleado_Cargo" Association="Self.FK_Empleado_Cargo">
+      <End Role="Cargo" EntitySet="Cargo" />
+      <End Role="Empleado" EntitySet="Empleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gasto_Doc" Association="Self.FK_Gasto_Doc">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Gasto" EntitySet="Gasto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gasto_Prov" Association="Self.FK_Gasto_Prov">
+      <End Role="Documento" EntitySet="Documento" />
+      <End Role="Gasto" EntitySet="Gasto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gasto_Tipo" Association="Self.FK_Gasto_Tipo">
+      <End Role="Gasto_Tipo" EntitySet="Gasto_Tipo" />
+      <End Role="Gasto" EntitySet="Gasto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Area" Association="Self.FK_Producto_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receta_Almacen" Association="Self.FK_Receta_Almacen">
+      <End Role="Almacen" EntitySet="Almacen" />
+      <End Role="Receta" EntitySet="Receta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receta_Producto" Association="Self.FK_Receta_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Receta" EntitySet="Receta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sede_Cliente" Association="Self.FK_Sede_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Cliente_Sede" EntitySet="Cliente_Sede" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Cuerpo_Moneda" Association="Self.FK_V_Cuerpo_Moneda">
+      <End Role="Moneda" EntitySet="Moneda" />
+      <End Role="Venta_Cuerpo" EntitySet="Venta_Cuerpo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Detalle_Cuerpo" Association="Self.FK_V_Detalle_Cuerpo">
+      <End Role="Venta_Cuerpo" EntitySet="Venta_Cuerpo" />
+      <End Role="Venta_Detalle" EntitySet="Venta_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Detalle_Prod" Association="Self.FK_V_Detalle_Prod">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Venta_Detalle" EntitySet="Venta_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Orden_Cliente" Association="Self.FK_V_Orden_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Venta_Orden" EntitySet="Venta_Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Orden_Cotiza" Association="Self.FK_V_Orden_Cotiza">
+      <End Role="Cotizacion" EntitySet="Cotizacion" />
+      <End Role="Venta_Orden" EntitySet="Venta_Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_V_Orden_Sede" Association="Self.FK_V_Orden_Sede">
+      <End Role="Sede" EntitySet="Sede" />
+      <End Role="Venta_Orden" EntitySet="Venta_Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venta_Doc" Association="Self.FK_Venta_Doc">
+      <End Role="Documento" EntitySet="Documento" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

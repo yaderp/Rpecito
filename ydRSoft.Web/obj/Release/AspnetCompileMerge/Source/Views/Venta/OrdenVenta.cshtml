@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "OrdenVenta";
+    Layout = "~/Views/Shared/_LayoutVentas.cshtml";
+}
+
+<h2>Orden Venta</h2>
+
+<div class="row ydR-label-succes ydR-input">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-default">                
+                <div class="ibox-content">
+                    <div>
+
+                        @if (ViewBag.ListaArea != null)
+                        {
+                            <div class="form-group  row">
+                                <div class="col-sm-4">
+                                    @Html.DropDownList("ID_Area", ViewBag.ListaArea as SelectList
+                                                                , new { @class = "btn btn-default text-success" })
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

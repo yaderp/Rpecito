@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ydRSoftWebModelStoreContainer" CdmEntityContainer="ydRSoftEntities">
+    <FunctionImportMapping FunctionImportName="sp_Insert_Almacen" FunctionName="ydRSoftWebModel.Store.sp_Insert_Almacen" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_Cliente" FunctionName="ydRSoftWebModel.Store.sp_Insert_Cliente" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_Compra" FunctionName="ydRSoftWebModel.Store.sp_Insert_Compra" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_CompraDetalle" FunctionName="ydRSoftWebModel.Store.sp_Insert_CompraDetalle" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_CompraGuia" FunctionName="ydRSoftWebModel.Store.sp_Insert_CompraGuia" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_CompraOrden" FunctionName="ydRSoftWebModel.Store.sp_Insert_CompraOrden" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_CompraSol" FunctionName="ydRSoftWebModel.Store.sp_Insert_CompraSol" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_Cotizacion" FunctionName="ydRSoftWebModel.Store.sp_Insert_Cotizacion" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_CotizaDetalle" FunctionName="ydRSoftWebModel.Store.sp_Insert_CotizaDetalle" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_Empleado" FunctionName="ydRSoftWebModel.Store.sp_Insert_Empleado" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_Producto" FunctionName="ydRSoftWebModel.Store.sp_Insert_Producto" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_Proveedor" FunctionName="ydRSoftWebModel.Store.sp_Insert_Proveedor" />
+    <FunctionImportMapping FunctionImportName="sp_Insert_Receta" FunctionName="ydRSoftWebModel.Store.sp_Insert_Receta" />
+    <FunctionImportMapping FunctionImportName="sp_Update_CompraSol" FunctionName="ydRSoftWebModel.Store.sp_Update_CompraSol" />
+    <EntitySetMapping Name="Alma_Tipo">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Alma_Tipo">
+        <MappingFragment StoreEntitySet="Alma_Tipo">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Almacen">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Almacen">
+        <MappingFragment StoreEntitySet="Almacen">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+          <ScalarProperty Name="Cantidad_Orden" ColumnName="Cantidad_Orden" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID_Tipo" ColumnName="ID_Tipo" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Area">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Area">
+        <MappingFragment StoreEntitySet="Area">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cargo">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Cargo">
+        <MappingFragment StoreEntitySet="Cargo">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="ID_Estado" ColumnName="ID_Estado" />
+          <ScalarProperty Name="Sede" ColumnName="Sede" />
+          <ScalarProperty Name="Credito" ColumnName="Credito" />
+          <ScalarProperty Name="Pago" ColumnName="Pago" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Celular" ColumnName="Celular" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="RazSocial" ColumnName="RazSocial" />
+          <ScalarProperty Name="RUC" ColumnName="RUC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente_Credito">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Cliente_Credito">
+        <MappingFragment StoreEntitySet="Cliente_Credito">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente_Estado">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Cliente_Estado">
+        <MappingFragment StoreEntitySet="Cliente_Estado">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente_Pago">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Cliente_Pago">
+        <MappingFragment StoreEntitySet="Cliente_Pago">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente_Sede">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Cliente_Sede">
+        <MappingFragment StoreEntitySet="Cliente_Sede">
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="ID_Cliente" ColumnName="ID_Cliente" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compra">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Compra">
+        <MappingFragment StoreEntitySet="Compra">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Inafecta" ColumnName="Inafecta" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+          <ScalarProperty Name="ID_Doc" ColumnName="ID_Doc" />
+          <ScalarProperty Name="ID_Guia" ColumnName="ID_Guia" />
+          <ScalarProperty Name="Sede" ColumnName="Sede" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compra_Cuerpo">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Compra_Cuerpo">
+        <MappingFragment StoreEntitySet="Compra_Cuerpo">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Igv" ColumnName="Igv" />
+          <ScalarProperty Name="Inafecta" ColumnName="Inafecta" />
+          <ScalarProperty Name="TipoCambio" ColumnName="TipoCambio" />
+          <ScalarProperty Name="ID_Moneda" ColumnName="ID_Moneda" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compra_Detalle">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Compra_Detalle">
+        <MappingFragment StoreEntitySet="Compra_Detalle">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Observ" ColumnName="Observ" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Cant_Real" ColumnName="Cant_Real" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="ID_Alma" ColumnName="ID_Alma" />
+          <ScalarProperty Name="ID_Cuerpo" ColumnName="ID_Cuerpo" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compra_Guia">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Compra_Guia">
+        <MappingFragment StoreEntitySet="Compra_Guia">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="ID_AProbado" ColumnName="ID_AProbado" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+          <ScalarProperty Name="ID_Prov" ColumnName="ID_Prov" />
+          <ScalarProperty Name="Sede" ColumnName="Sede" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compra_Orden">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Compra_Orden">
+        <MappingFragment StoreEntitySet="Compra_Orden">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="ID_Prov" ColumnName="ID_Prov" />
+          <ScalarProperty Name="Sede" ColumnName="Sede" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compra_Solicitud">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Compra_Solicitud">
+        <MappingFragment StoreEntitySet="Compra_Solicitud">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="ID_Alma" ColumnName="ID_Alma" />
+          <ScalarProperty Name="ID_Aprobado" ColumnName="ID_Aprobado" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="Sede" ColumnName="Sede" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Conexion">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Conexion">
+        <MappingFragment StoreEntitySet="Conexion">
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="OtroUrl" ColumnName="OtroUrl" />
+          <ScalarProperty Name="Pagweb" ColumnName="Pagweb" />
+          <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="RUC" ColumnName="RUC" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cotiza_Detalle">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Cotiza_Detalle">
+        <MappingFragment StoreEntitySet="Cotiza_Detalle">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="ID_Cotiza" ColumnName="ID_Cotiza" />
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cotizacion">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Cotizacion">
+        <MappingFragment StoreEntitySet="Cotizacion">
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="ID_Aprobado" ColumnName="ID_Aprobado" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="RazSocial" ColumnName="RazSocial" />
+          <ScalarProperty Name="RUC" ColumnName="RUC" />
+          <ScalarProperty Name="ID_Sede" ColumnName="ID_Sede" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documento">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Documento">
+        <MappingFragment StoreEntitySet="Documento">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleado">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="Fecha_Fin" ColumnName="Fecha_Fin" />
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+          <ScalarProperty Name="Fecha_Nac" ColumnName="Fecha_Nac" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Clave" ColumnName="Clave" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+          <ScalarProperty Name="ID_Cargo" ColumnName="ID_Cargo" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gasto">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Gasto">
+        <MappingFragment StoreEntitySet="Gasto">
+          <ScalarProperty Name="Fecha_reg" ColumnName="Fecha_reg" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Inafecta" ColumnName="Inafecta" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+          <ScalarProperty Name="ID_Prov" ColumnName="ID_Prov" />
+          <ScalarProperty Name="ID_doc" ColumnName="ID_doc" />
+          <ScalarProperty Name="ID_Tipo" ColumnName="ID_Tipo" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gasto_Tipo">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Gasto_Tipo">
+        <MappingFragment StoreEntitySet="Gasto_Tipo">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Moneda">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Moneda">
+        <MappingFragment StoreEntitySet="Moneda">
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="Cambio" ColumnName="Cambio" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+          <ScalarProperty Name="Cantidad_Min" ColumnName="Cantidad_Min" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID_Area" ColumnName="ID_Area" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedor">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Proveedor">
+        <MappingFragment StoreEntitySet="Proveedor">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="RazSocial" ColumnName="RazSocial" />
+          <ScalarProperty Name="RUC" ColumnName="RUC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Receta">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Receta">
+        <MappingFragment StoreEntitySet="Receta">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="ID_Almacen" ColumnName="ID_Almacen" />
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sede">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Sede">
+        <MappingFragment StoreEntitySet="Sede">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Empleado" ColumnName="Empleado" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Celular" ColumnName="Celular" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Serie_Numero">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Serie_Numero">
+        <MappingFragment StoreEntitySet="Serie_Numero">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venta">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Venta">
+        <MappingFragment StoreEntitySet="Venta">
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+          <ScalarProperty Name="ID_Doc" ColumnName="ID_Doc" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venta_Cuerpo">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Venta_Cuerpo">
+        <MappingFragment StoreEntitySet="Venta_Cuerpo">
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="IGV" ColumnName="IGV" />
+          <ScalarProperty Name="Base" ColumnName="Base" />
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+          <ScalarProperty Name="Inafecta" ColumnName="Inafecta" />
+          <ScalarProperty Name="Cambio" ColumnName="Cambio" />
+          <ScalarProperty Name="ID_Moneda" ColumnName="ID_Moneda" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venta_Detalle">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Venta_Detalle">
+        <MappingFragment StoreEntitySet="Venta_Detalle">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Igv" ColumnName="Igv" />
+          <ScalarProperty Name="Base" ColumnName="Base" />
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+          <ScalarProperty Name="ID_Cuerpo" ColumnName="ID_Cuerpo" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venta_Guia">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Venta_Guia">
+        <MappingFragment StoreEntitySet="Venta_Guia">
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+          <ScalarProperty Name="Placa" ColumnName="Placa" />
+          <ScalarProperty Name="Licencia" ColumnName="Licencia" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venta_Orden">
+      <EntityTypeMapping TypeName="ydRSoftWebModel.Venta_Orden">
+        <MappingFragment StoreEntitySet="Venta_Orden">
+          <ScalarProperty Name="Fecha_Reg" ColumnName="Fecha_Reg" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="ID_Cliente" ColumnName="ID_Cliente" />
+          <ScalarProperty Name="ID_Cotiza" ColumnName="ID_Cotiza" />
+          <ScalarProperty Name="ID_Sede" ColumnName="ID_Sede" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_Insert_Gasto" FunctionName="ydRSoftWebModel.Store.sp_Insert_Gasto" />
+  </EntityContainerMapping>
+</Mapping>

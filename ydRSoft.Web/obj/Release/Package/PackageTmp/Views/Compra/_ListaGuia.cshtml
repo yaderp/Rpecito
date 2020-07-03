@@ -1,0 +1,154 @@
+﻿
+
+@{
+    var vmLista = ViewBag.vmLista;
+    var Img = ViewBag.mImg;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Guia Compra </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Codigo</th>
+                                <th>RUC</th>
+                                <th>Proveedor</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.vmLista != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td width="1%" style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="5%" align="center">@item.Fecha</td>
+                                        <td width="25%" align="left">@item.Serie - @item.Numero</td>
+                                        <td width="25%" align="left">@item.RUC</td>
+                                        <td width="30%" align="left">@item.RazSocial</td>
+                                        <td width="15%" align="center">
+                                            @if (item.Estado == ydRSoft.ydR.Estado.APROBADO)
+                                            {
+                                            <div class="btn-group">
+                                                <button class="btn-info btn btn-xs" data-toggle="modal" data-target="#modalVer" id="btnModal"> &nbsp;<i class="fa fa-view"></i> &nbsp; Ver</button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn-primary btn btn-xs" data-toggle="modal" data-target="#modalImg" id="btnModal"> &nbsp;<i class="fa fa-image"></i> &nbsp; Img</button>
+                                            </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="btn-group">
+                                                    <a class="btn-success btn btn-xs" href="@Url.Action("AddCompra", "Compra", new { Id = item.ID})"> &nbsp;<i class="fa fa-share"></i>  &nbsp; Comp </a>
+                                                    &nbsp;&nbsp;
+                                                    <button class="btn-info btn btn-xs" data-toggle="modal" data-target="#modalVer" id="btnModal"> &nbsp;<i class="fa fa-view"></i> &nbsp; Ver</button>
+                                                    &nbsp;&nbsp;
+                                                    <button class="btn-primary btn btn-xs" data-toggle="modal" data-target="#modalImg" id="btnModal"> &nbsp;<i class="fa fa-image"></i> &nbsp; Img</button>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="modalVer" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content">           
+            <div class="modal-body">
+                <div id="resultadoModel"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="modalImg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content">
+            <div class="modal-header">
+                 <h2> <small> Guia :  &nbsp;</small> <strong><span id="tituloImg"></span> </strong> </h2>  <br />
+                <div>
+                    <img id="ImgCarga" align="middle" style="max-height:400px;width:auto" src="~/Content/img/sin_imagen.jpg">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div>
+                <div class="ibox-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(".btn-info").click(function () {
+        vid = $(this).parents("tr").find("td").eq(0).html();
+        $.get("/Compra/VerGuia", { Id: vid }, function (response) {
+            $("#resultadoModel").hide("slow", function () {
+                $(this).html(response);
+                $(this).show("slow");
+            });
+        });
+        
+    });
+
+    $(".btn-primary").click(function () {        
+        vid = $(this).parents("tr").find("td").eq(0).html();
+        $.get("/Compra/VerImgGuia", { IdGuia: vid }, function (data) { 
+            if (!data.Error) {
+                $("#ImgCarga").attr("src", "data:text/plain;base64," + data.Filtro);
+                $("#tituloImg").html(data.Mensaje);
+            } else {
+                alert("Error de Imagen");
+            }
+        });
+    });
+
+
+</script>
+

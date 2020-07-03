@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Lista Comprobante";
+}
+
+<script>
+    window.onload = function () {
+        loadInicio();
+    };
+
+</script>
+<div id="resultado"></div>
+
+@section scripts
+{
+    <script>
+        function loadInicio() {
+            $.get("/Compra/getListaComp", { IdEstado:@ydRSoft.ydR.Estado.NUEVO}, function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            });
+        };
+    </script>
+}

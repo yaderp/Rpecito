@@ -1,0 +1,185 @@
+﻿
+
+@{
+    var vmLista = ViewBag.ListaDetalle;
+}
+
+
+<div class="row col-md-12">
+    <div class="col-md-6">
+        @if (TempData["Error"] != null)
+        {
+            if (TempData["Mensaje"] != null)
+            {
+                <div class="alert alert-success">
+                    <strong>Felicidades!!!</strong> @TempData["Mensaje"].ToString()
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <strong>Advertencia!!!</strong> @TempData["Error"].ToString()
+                </div>
+            }
+        }
+
+    </div>
+    <div class="col-md-6">
+        <a class="btn btn-info" type="button" href="@Url.Action("SendSol","Compra")"> &nbsp;  ENVIAR &nbsp; <i class="fa fa-send"></i> &nbsp; </a>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="panel panel-success text-success">
+                <div class="ibox-title">
+
+                    <h4> <small> Lista</small> &nbsp; Cotizaciones </h4>
+
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">ID</th>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.ListaDetalle != null)
+                            {
+                                foreach (var item in vmLista)
+                                {
+                                    <tr>
+                                        <td style="visibility:hidden">@item.ID</td>
+                                        <td width="5%" align="center">@item.Codigo</td>
+                                        <td width="20%" align="left">@item.Fecha</td>
+                                        <td width="50%" align="left">@item.Nombre</td>
+                                        <td width="10%" align="right">@item.Cantidad</td>
+                                        <td width="20%" align="center">
+                                            <div class="btn-group">
+                                                <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#modalEdit" id="btnModal"> &nbsp;<i class="fa fa-edit"></i> &nbsp; Editar</button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn-danger btn btn-xs"> &nbsp;<i class="fa fa-trash"></i>  &nbsp; </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th style="visibility:hidden"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg text-success" id="ydR-label">
+        <div class="modal-content">
+            <div class="modal-header" id="titulo">
+                <h2><strong> <span class="text-success" id="TituloEditar"> </span> </strong>  </h2> &nbsp; EDITAR
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="EditIdDet" hidden="hidden" />
+                @if (ViewBag.TipoAlma != null)
+                {
+                    <div class="form-group  row">
+                        <div class="col-sm-6">
+                            @Html.DropDownList("EditTipoAlma", ViewBag.TipoAlma as SelectList, new { @class = "btn btn-default text-success" })
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <div class="col-sm-6">
+                            @Html.DropDownList("EditIdAlmacen", new SelectList(""), new { @class = "btn btn-default text-success" })
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group  row">
+                    <div class="col-sm-6">
+                        <input type="number" id="Editcantidad" class="form-control" placeholder="Cantidad" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ydR-danger" data-dismiss="modal">&nbsp;  &nbsp; Cerrar &nbsp; &nbsp;</button>
+                <button type="button" id="ModalSave" class="btn btn-ydR-primary" data-dismiss="modal"> &nbsp; Guardar Cambios &nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $("#ModalSave").click(function () {
+        var dataString = new FormData();
+        dataString.append("ID", $("#EditIdDet").val());
+        dataString.append("ID_Alma", $("#EditIdAlmacen").val());
+        dataString.append("Cantidad", $("#Editcantidad").val());
+        dataString.append("ID_Empl", $("#ID_Empl").val());
+        $.ajax({
+            url: "@Url.Action("EditCompraSol", "Compra")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                //$("#Cantidad").val("");
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+    });
+
+
+    $(".btn-success").click(function () {
+        idp = $(this).parents("tr").find("td").eq(0).html();
+        nomp = $(this).parents("tr").find("td").eq(3).html();
+        cant = $(this).parents("tr").find("td").eq(4).html();
+
+        $("#EditIdDet").val(idp);
+        $("#TituloEditar").html(nomp);
+        $("#Editcantidad").val(cant);        
+        EditloadTipoAlma($("#TipoAlma").val());
+
+        $("#EditTipoAlma").val($("#TipoAlma").val());
+    });
+
+    $("#EditTipoAlma").change(function () {
+        EditloadTipoAlma($("#EditTipoAlma").val());
+    });
+
+    function EditloadTipoAlma(vid) {
+        $.get("/Almacen/JsonAlmaLista", { IdTipo: vid }, function (data) {
+            $("#EditIdAlmacen").empty();
+            $.each(data, function (index, row) {
+                $("#EditIdAlmacen").append("<option value='" + row.ID + "'>" + row.Nombre + "</option>")
+            });
+        });
+    };
+
+
+</script>

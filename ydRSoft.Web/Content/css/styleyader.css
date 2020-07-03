@@ -1,0 +1,86 @@
+﻿
+
+
+.btn-ydR-success {
+    background-color: #1C84C6;
+    border: none;
+    color: white;
+    padding: 10px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.btn-ydR-danger {
+    background-color: #ED5666;
+    border: none;
+    color: white;
+    padding: 10px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.btn-ydR-info {
+    background-color: #24C6C8;
+    border: none;
+    color: white;
+    padding: 10px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.btn-ydR-warnig {
+    background-color: #F8AC5A;
+    border: none;
+    color: white;
+    padding: 10px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.btn-ydR-primary {
+    background-color: #1BB394;
+    border: none;
+    color: white;
+    padding: 10px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.ydR-titulo-success h2 {
+    display: inline;
+    color: #1C84C6;
+}
+
+.ydR-titulo-danger h2 {
+    display: inline;
+    color: #ED5666;
+}
+
+.ydR-titulo-warning h2 {
+    display: inline;
+    color: #F8AC5A;
+}
+
+.ydR-label-succes label {
+    color: #1C84C6;
+    font-weight: bold;
+}
+
+.ydR-label-danger label {
+    color: #ED5666;
+    font-weight: bold;
+}
+
+.ydR-input input[type=text] {
+    color: #1C84C6;
+}

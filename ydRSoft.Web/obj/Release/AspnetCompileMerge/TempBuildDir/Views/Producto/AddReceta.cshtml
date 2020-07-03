@@ -1,0 +1,158 @@
+﻿
+@model ydRSoft.Model.ProductoModel
+
+@{
+    ViewBag.Title = "Receta";
+    Layout = "~/Views/Shared/_LayoutProduccion.cshtml";
+
+
+}
+
+<style>
+    .ydRImg img {
+        width: auto;
+        max-height: 185px;
+    }
+</style>
+
+<script>
+    window.onload = function () {
+        loadAlmacen(2);
+        loadReceta(@Model.ID);
+    };
+</script>
+
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert ">
+        <strong>Advertencia!</strong> @TempData["Mensaje"].ToString()
+    </div>
+}
+else
+{
+    @*<div class="ibox-title">
+            <strong>Productos  </strong> !!!
+        </div>*@
+   
+
+
+    <div class="col-lg-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4><small> Receta </small> @Model.Nombre </h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row col-lg-12">
+
+                    <div class="col-lg-4">
+                        @Html.HiddenFor(x => x.ID)
+                        @if (ViewBag.ListaTipo != null)
+                        {
+                            <div class="form-group  row">
+                                <div class="col-sm-8">
+                                    @Html.DropDownList("ID_Tipo", ViewBag.ListaTipo as SelectList, new { @class = "btn btn-default text-success" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group  row">
+
+                                <div class="col-sm-8">
+                                    @Html.DropDownList("ID_Alma", new SelectList(""), new { @class = "btn btn-default text-success" })
+                                </div>
+
+                            </div>
+                        }
+                        
+                        <div class="form-group  row">
+                            <div class="col-sm-6">
+                                @Html.TextBox("Cantidad", "", new { @class = "form-control", placeholder = "0.00" })
+                            </div>
+                            <label class="col-sm-2 col-form-label text-success"><strong>Cantidad</strong> </label>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 ydRImg">
+                        <div id="imagePreview">
+                            @if (Model.ID_Img)
+                            {
+                            <img class="imgarticulo" src="@Url.Action("convertirImagen", "Producto", new { codigo = Model.ID })" />
+                            }
+                            else {
+                            <img class="imgarticulo" src="~/Content/img/sin_imagen.jpg" />
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <div class="col-sm-2">
+                    <button class="btn btn-success" type="button" id="buttonAdd">  AGREGAR  &nbsp <i class="fa fa-diamond"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="resultado"></div>
+
+@section scripts
+{
+    <script>
+
+
+    $("#buttonAdd").click(function () {
+        var vid = parseInt($("#ID_Alma").val());
+        var dataString = new FormData();
+
+        if (isNaN(vid)) return;
+        dataString.append("ID_Alma", vid);
+        dataString.append("ID_Prod", $("#ID").val());
+        dataString.append("Cantidad", $("#Cantidad").val());
+        $.ajax({
+            url: "@Url.Action("AddReceta", "Producto")",
+            type: "POST",
+            data: dataString,
+            contentType: false,
+            processData: false,
+            //async: false,
+            success: function (response) {
+                $("#resultado").hide("slow", function () {
+                    $(this).html(response);
+                    $(this).show("slow");
+                });
+            }
+        });
+    });
+
+    $("#ID_Tipo").change(function () {
+        loadAlmacen($("#ID_Tipo").val());
+    });
+
+    function loadAlmacen(vid) {
+        $.get("/Producto/JsonAlmaLista", { ID_Tipo: vid }, function (data) {
+            $("#ID_Alma").empty();
+
+            $.each(data, function (index, row) {
+                $("#ID_Alma").append("<option value='" + row.ID + "'>" + row.Nombre + "</option>")
+            });
+
+        });
+    }
+
+    function loadReceta(vid) {
+        $.get("/Producto/RecetaLista", { IdProd: vid }, function (response) {
+
+            $("#resultado").hide("slow", function () {
+                $(this).html(response);
+                $(this).show("slow");
+            });
+        });
+    }
+
+    </script>
+}
